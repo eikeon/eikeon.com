@@ -1,8 +1,8 @@
-We're currently developing against the latest weekly release of Go.
+Currently developing against the latest weekly release of Go.
 
 To install:
 
-> goinstall github.com/eikeon/hu
+> goinstall github.com/eikeon/eikeon.com
 
 Once installed you can run 'go' and its various commands from the installed location. For example:
 

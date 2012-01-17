@@ -1,5 +1,0 @@
-hush is a hu shell.  To install it from this directory, type:
-
-> go install
-
-To invoke it, type "hush".
