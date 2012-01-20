@@ -63,6 +63,7 @@ func initRecipes(reader io.Reader) {
 				key, value := parts[0], parts[1]
 				switch key {
 				case "Photo":
+					value = strings.TrimSpace(value)
 					recipe.Photo = value
 				default:
 					if key != "" {

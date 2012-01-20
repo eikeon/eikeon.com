@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"crypto/md5"
 	"fmt"
+	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"text/template"
 )
 
 var site_template = template.Must(template.ParseFiles("site.html"))
@@ -24,7 +24,7 @@ func init() {
 
 type page struct {
 	Title      string
-	Stylesheet string
+	Stylesheet template.CSS
 	NotFound   bool
 	Recipes    []*Recipe
 	Recipe     *Recipe
@@ -32,7 +32,7 @@ type page struct {
 }
 
 func newPage(title string) *page {
-	return &page{Title: title, Stylesheet: site_style}
+	return &page{Title: title, Stylesheet: template.CSS(site_style)}
 }
 
 func (p *page) Write(w http.ResponseWriter, req *http.Request) (err error) {
