@@ -39,6 +39,14 @@
     </style>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script>
+      FB.init({
+        appId:'255665227781659', cookie:true,
+        status:true, xfbml:true, oauth:true
+      });
+    </script>
     <div class="navbar navbar-fixed">
       <div class="navbar-inner">
         <div class="container">
@@ -77,19 +85,14 @@
 	    </div>
 	  </div>
 	</div>
+	<div class="row">
+	  <div class="span12">
+            <fb:activity actions="eikeonns:cook"></fb:activity>
+            <fb:add-to-timeline></fb:add-to-timeline>
+	  </div>
+	</div>
       </div>
 {{end}}{{with .Recipe}}
-
-      <div id="fb-root"></div>
-
-      <script src="http://connect.facebook.net/en_US/all.js"></script>
-      <script>
-        FB.init({
-        appId:'255665227781659', cookie:true,
-        status:true, xfbml:true, oauth:true
-        });
-      </script>
-
       <article class="row" itemscope itemtype="http://data-vocabulary.org/Recipe">
 	<div class="row">
 	  <div class="span8">
@@ -100,7 +103,10 @@
 	  </div>
 	  <div class="span4">
 	    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}"/>{{end}}
-	    <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="176" show_faces="true" font=""></fb:like>
+	    <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="176" show_faces="false" font=""></fb:like>
+            <form>
+	      <p><small>I'm <input class="btn" type="button" value="Cooking" onclick="postCook()" /> this recipe.</small></p>
+            </form>
 	  </div>
 	</div>
 	<hr>
@@ -133,13 +139,6 @@
           <aside class="span12">
             <fb:comments href="http://www.eikeon.com/recipe/{{.Id}}/" num_posts="10"></fb:comments>
           </aside>
-	</div>
-	<div class="row">
-          <form>
-	    <p>I'm <input class="btn" type="button" value="Cooking" onclick="postCook()" /> this recipe.</p>
-          </form>
-          <fb:activity actions="eikeonns:cook"></fb:activity>
-          <fb:add-to-timeline></fb:add-to-timeline>
 	</div>
       </article>{{end}}
       <footer>
