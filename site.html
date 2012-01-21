@@ -1,9 +1,12 @@
-<!DOCTYPE html> 
-<html xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="https://www.facebook.com/2008/fbml"> 
-  <head> 
-    <meta charset="utf-8"> 
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+  <head>
+    <meta charset="utf-8">
     <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
     <meta property="og:title" content="{{.Title}}"/>
     <meta property="og:site_name" content="Daniel Krech"/>
     <meta property="fb:admins" content="756782588"/>{{with .Recipe}}
@@ -12,65 +15,113 @@
     <meta property="og:type" content="food"/>{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
     <meta property="og:description"
-          content="{{.Description}}"/>{{end}}{{with .Stylesheet}}
-    <style type="text/css">{{.}}</style>{{end}}
-  </head> 
-  <body> 
-    <header> 
-      <nav> 
-        <ul>
-          <li><a href="/">Daniel Krech</a></li>
-          <li><a href="/recipes/">Recipes</a></li>
-        </ul>
-      </nav> 
-    </header>{{with .NotFound}}
-    <article>
-      <header>
-        <h1>Page Not Found</h1>
-      </header>
-      <p><a href="/">Daniel Krech</a></p>
-    </article>{{end}}{{if .Recipes}}
-    <article>
-      <header>
-        <h1>{{.Title}}</h1>
-      </header>
-      <ul>{{range .Recipes}}
-        <li><a href="/recipe/{{.Id}}/">{{.Name}}</a></li>{{end}}
-      </ul>
-    </article>{{end}}{{with .Recipe}}
-    <article itemscope itemtype="http://data-vocabulary.org/Recipe">
-      <div style="display: table">
-        <div style="display: table-cell">
-      <header>
-        <h1 itemprop="name">{{.Name}} Recipe</h1>
-      </header>
-      <p>{{.Description}}</p>
-      <hr>{{if .Ingredients}}
-      <section class="ingredients">
-        <ul class="ingredients">{{range .Ingredients}}
-          <li itemprop="ingredient" itemscope itemtype="http://data-vocabulary.org/RecipeIngredient"><span itemprop="name">{{.}}</span></li>{{end}}
-        </ul>
-      </section>{{end}}{{if .Directions}}
-      <section class="directions" itemprop="instructions">{{range .Directions}}
-          <p>{{.}}</p>{{end}}
-      </section>{{end}}{{if .Photo}}
-      <img itemprop="photo" src="{{.Photo}}"/>{{end}}{{if .Attributes}}
-      <dl class="attributes">{{range $key, $value := .Attributes}}
-	<dt>{{$key}}</dt>
-	<dd>{{$value}}</dd>{{end}}
-      </dl>{{end}}
-
+          content="{{.Description}}"/>{{end}}
+    <link href="/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Daniel Krech</a>
+          <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/recipes/">Recipes</a></li>
+          </ul>
         </div>
-        <aside>
-          <div id="fb-root" style="float: right"></div>
-          <script src="http://connect.facebook.net/en_US/all.js#appId=255665227781659&amp;xfbml=1"></script>
-          <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="450" show_faces="true" font=""></fb:like>
-          <fb:comments href="http://www.eikeon.com/recipe/{{.Id}}/" num_posts="3" width="450"></fb:comments>
-        </aside>
       </div>
-    </article>{{end}}
-    <footer>
-      <p>&#169; 2010&#8211;2012 <a href="http://www.eikeon.com/">Daniel Krech</a> 食品当作药品</p>
-    </footer>
-  </body> 
+    </div>
+    <div class="container">{{with .NotFound}}
+      <div>
+	<h1>Page Not Found</h1>
+      </div>{{end}}{{if .Recipes}}
+      <div>
+	<h1>{{.Title}}</h1>
+	<div class="row">
+          <div class="span4">
+	    <ul>{{range .Recipes}}
+	      <li><a href="/recipe/{{.Id}}/">{{.Name}}</a></li>{{end}}
+	    </ul>
+	  </div>
+          <div class="span8">
+	    <div id="recipeCarousel" class="carousel slide">
+	      <div class="carousel-inner">{{range .Recipes}}{{if .Photo}}
+		<div class="item">
+		  <img itemprop="photo" src="{{.Photo}}"/>
+		  <div class="carousel-caption">
+		    <h4><a href="/recipe/{{.Id}}/">{{.Name}}</a></h4>
+		  </div>
+		</div>{{end}}{{end}}
+	      </div>
+	      <a class="carousel-control left" href="#recipeCarousel" data-slide="prev">&lsaquo;</a>
+	      <a class="carousel-control right" href="#recipeCarousel" data-slide="next">&rsaquo;</a>
+	    </div>
+	  </div>
+	</div>
+      </div>
+{{end}}{{with .Recipe}}
+      <article class="row" itemscope itemtype="http://data-vocabulary.org/Recipe">
+	<div class="row">
+	  <div class="span8">
+	    <header>
+              <h1 itemprop="name">{{.Name}} <small>Recipe</small></h1>
+	    </header>
+	    <p>{{.Description}}</p>
+	  </div>
+	  <div class="span4">
+	    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}"/>{{end}}
+	    <div id="fb-root" xstyle="float: right"></div>
+	    <script src="http://connect.facebook.net/en_US/all.js#appId=255665227781659&amp;xfbml=1"></script>
+	    <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="176" show_faces="true" font=""></fb:like>
+	  </div>
+	</div>
+	<hr>
+	<div class="row">
+	  {{if .Ingredients}}
+	  <section class="span4 ingredients">
+            <ul class="ingredients">{{range .Ingredients}}
+	      <li itemprop="ingredient" itemscope itemtype="http://data-vocabulary.org/RecipeIngredient"><span itemprop="name">{{.}}</span></li>{{end}}
+            </ul>
+	  </section>{{end}}{{if .Directions}}
+	  <div class="span8">
+	    <section class="directions" itemprop="instructions">{{range .Directions}}
+              <p>{{.}}</p>{{end}}
+	    </section>
+	  </div>
+	  {{end}}
+	</div>
+	<hr>
+	<div class="row">
+	  <div class="span8">
+	    {{if .Attributes}}
+	    <dl class="attributes">{{range $key, $value := .Attributes}}
+	      <dt>{{$key}}</dt>
+	      <dd>{{$value}}</dd>{{end}}
+	    </dl>{{end}}
+          </div>
+	  <div class="span4"></div>
+	</div>
+	<div class="row">
+          <aside class="span12">
+            <fb:comments href="http://www.eikeon.com/recipe/{{.Id}}/" num_posts="10"></fb:comments>
+          </aside>
+	</div>
+      </article>{{end}}
+      <footer>
+	<p>&copy; Daniel Krech 2010-2012 食品当作药品</p>
+      </footer>
+    </div> <!-- /container -->
+    <script src="/jquery.js"></script>
+    <script src="/bootstrap-carousel.js"></script>
+    <script>
+      $(function () {
+        $('#recipeCarousel').carousel()
+        $('#recipeCarousel').carousel('next')
+      })
+    </script>
+  </body>
 </html>
