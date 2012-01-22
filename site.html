@@ -10,22 +10,8 @@
     <meta property="og:title" content="{{.Title}}"/>
     <meta property="og:site_name" content="Daniel Krech"/>
     <meta property="og:locale" content="en_US"/>
-    <meta property="fb:admins" content="756782588"/>{{with .Recipe}}
-    <script type="text/javascript">
-       function postCook()
-       {
-          FB.api('/me/eikeonns:cook' +
-                       '?recipe=http://www.eikeon.com/recipe/{{.Id}}/','post',
-                       function(response) {
-               if (!response || response.error) {
-                       alert('Error occured');
-               } else {
-                   alert('Post was successful! Action ID: ' + response.id);
-               }
-          });
-       }
-    </script>
     <meta property="fb:app_id" content="255665227781659">
+    <meta property="fb:admins" content="756782588"/>{{with .Recipe}}
     <meta property="og:url" content="http://www.eikeon.com/recipe/{{.Id}}/"/>
     <meta property="og:type" content="eikeonns:recipe" />{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
@@ -36,17 +22,12 @@
       body {
         padding-top: 60px;
       }
+      .assert_cooking {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <div id="fb-root"></div>
-    <script src="http://connect.facebook.net/en_US/all.js"></script>
-    <script>
-      FB.init({
-        appId:'255665227781659', cookie:true,
-        status:true, xfbml:true, oauth:true
-      });
-    </script>
     <div class="navbar navbar-fixed">
       <div class="navbar-inner">
         <div class="container">
@@ -104,9 +85,7 @@
 	  <div class="span4">
 	    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}"/>{{end}}
 	    <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="176" show_faces="false" font=""></fb:like>
-            <form>
-	      <p><small>I'm <input class="btn" type="button" value="Cooking" onclick="postCook()" /> this recipe.</small></p>
-            </form>
+	    <p class="assert_cooking"><small>I'm <button id="cooking" class="btn">cooking</button> this recipe.</small></p>
 	  </div>
 	</div>
 	<hr>
@@ -146,12 +125,75 @@
       </footer>
     </div> <!-- /container -->
     <script src="/jquery.js"></script>
+    {{if .Recipes}}
     <script src="/bootstrap-carousel.js"></script>
     <script>
       $(function () {
         $('#recipeCarousel').carousel()
         $('#recipeCarousel').carousel('next')
       })
+    </script>
+    {{end}}
+    <div id="fb-root"></div>
+    <script>
+    window.fbAsyncInit = function() {
+	FB.init({
+            //appId      : '240290162690790', // dev App ID
+	    appId      : '255665227781659', // App ID
+            //channelUrl : '//www.eikeon.com/channel.html', // Channel File
+	    status     : true, // check login status
+	    cookie     : true, // enable cookies to allow the server to access the session
+	    xfbml      : true  // parse XFBML
+	});
+
+	// Additional initialization code here
+
+    {{with .Recipe}}
+	var postCook = function() {
+	    FB.api('/me/eikeonns:cook' +
+		   '?recipe=http://www.eikeon.com/recipe/{{.Id}}/','post',
+		   function(response) {
+		       if (!response || response.error) {
+			   alert('Error occured');
+		       } else {
+			   alert('Post was successful! Action ID: ' + response.id);
+		       }
+		   });
+	}
+
+	var updateButton = function(response) {
+	    var button = document.getElementById('cooking');
+            $('.assert_cooking').show()
+	    if (response.status === 'connected') {
+		button.onclick = function() {
+		    postCook();
+		};
+	    } else {
+		button.onclick = function() {
+		    FB.login(function(response) {
+			if (response.status === 'connected') {
+			    postCook();
+			} else {
+			    alert('need to be logged in to assert cooking');
+			}
+		    });
+		};
+	    }
+	};
+
+	// run it once with the current status and also whenever the status changes
+	FB.getLoginStatus(updateButton);
+	FB.Event.subscribe('auth.statusChange', updateButton);
+    {{end}}
+    };
+
+    // Load the SDK Asynchronously
+    (function(d){
+	var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	js = d.createElement('script'); js.id = id; js.async = true;
+	js.src = "//connect.facebook.net/en_US/all.js";
+	d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
     </script>
   </body>
 </html>
