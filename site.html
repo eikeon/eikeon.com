@@ -68,8 +68,8 @@
 	</div>
 	<div class="row">
 	  <div class="span12">
-            <fb:activity actions="eikeonns:cook"></fb:activity>
-            <fb:add-to-timeline></fb:add-to-timeline>
+            <div class="fb-activity" data-header="true" data-recommendations="false"></div>
+            <div class="fb-add-to-timeline" data-show-faces="true"></div>
 	  </div>
 	</div>
       </div>
@@ -84,7 +84,7 @@
 	  </div>
 	  <div class="span4">
 	    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}"/>{{end}}
-	    <fb:like href="http://www.eikeon.com/recipe/{{.Id}}/" send="true" width="176" show_faces="false" font=""></fb:like>
+	    <div class="fb-like" data-send="true" data-width="176" data-show-faces="false"></div>
 	    <p class="assert_cooking"><small>I'm <button id="cooking" class="btn">cooking</button> this recipe.</small></p>
 	  </div>
 	</div>
@@ -116,7 +116,7 @@
 	</div>
 	<div class="row">
           <aside class="span12">
-            <fb:comments href="http://www.eikeon.com/recipe/{{.Id}}/" num_posts="10"></fb:comments>
+            <div class="fb-comments" data-href="http://www.eikeon.com/recipe/{{.Id}}/" data-num-posts="10"></div>
           </aside>
 	</div>
       </article>{{end}}
