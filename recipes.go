@@ -43,20 +43,27 @@ var Recipe_list RecipeArray
 
 func initRecipes(reader io.Reader) {
 	rune_scanner := bufio.NewReader(reader)
-	expression := hu.Read(rune_scanner)
-
-	for _, rexp := range expression.(hu.Tuple) {
+	expression := hu.ReadDocument(rune_scanner)
+	fmt.Printf("expression: %T %v\n", expression, len(expression))
+	for _, rexp := range expression {
+		fmt.Printf("rexp: %v %v\n", rexp, len(rexp.(hu.Part)))
 		recipe := &Recipe{}
-		recipe.Name = rexp.(hu.Tuple)[0].String()
-		recipe.Description = rexp.(hu.Tuple)[1].String()
-		for _, e := range rexp.(hu.Tuple)[2].(hu.Part) {
-			recipe.Ingredients = append(recipe.Ingredients, e.String())
+		recipe.Name = strings.Trim(rexp.(hu.Part)[0].String(), " \n§")
+		recipe.Description = rexp.(hu.Part)[1].String()
+		for _, e := range rexp.(hu.Part)[2].(hu.Part) {
+			ingredient := strings.Trim(e.String(), " \n")
+			if ingredient != "" {
+				recipe.Ingredients = append(recipe.Ingredients, ingredient)
+			}
 		}
-		for _, e := range rexp.(hu.Tuple)[3].(hu.Part) {
-			recipe.Directions = append(recipe.Directions, e.String())
+		for _, e := range rexp.(hu.Part)[3].(hu.Part) {
+			direction := strings.Trim(e.String(), " \n")
+			if direction != "" {
+				recipe.Directions = append(recipe.Directions, direction)
+			}
 		}
 		recipe.Attributes = make(map[string]string)
-		rest := rexp.(hu.Tuple)[4:]
+		rest := rexp.(hu.Part)[4:]
 		for _, e := range rest {
 			parts := strings.SplitN(e.String(), ":", 2)
 			if len(parts) == 2 {
