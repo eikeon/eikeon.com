@@ -5,6 +5,7 @@
   <head>
     <meta charset="utf-8">
     <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta property="og:title" content="{{.Title}}"/>
@@ -17,28 +18,43 @@
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
     <meta property="og:description"
           content="{{.Description}}"/>{{end}}
-    <link href="/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
+
+    <style>
       body {
-        padding-top: 60px;
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
       .assert_cooking {
         display: none;
       }
     </style>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
+
   <body>
-    <div class="navbar navbar-fixed">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">Daniel Krech</a>
-          <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/recipes/">Recipes</a></li>
-          </ul>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Daniel Krech</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/recipes/">Recipes</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
+
     <div class="container">{{with .NotFound}}
       <div>
 	<h1>Page Not Found</h1>
@@ -51,7 +67,8 @@
 	      <li><a href="/recipe/{{.Id}}/">{{.Name}}</a></li>{{end}}
 	    </ul>
 	  </div>
-          <div class="span8">
+          <div class="span1"></div>
+          <div class="span6">
 	    <div id="recipeCarousel" class="carousel slide">
 	      <div class="carousel-inner">{{range .Recipes}}{{if .Photo}}
 		<div class="item">
@@ -65,9 +82,11 @@
 	      <a class="carousel-control right" href="#recipeCarousel" data-slide="next">&rsaquo;</a>
 	    </div>
 	  </div>
+          <div class="span1"></div>
 	</div>
 	<div class="row">
 	  <div class="span12">
+	    <div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>
             <div class="fb-activity" data-header="true" data-recommendations="false"></div>
             <div class="fb-add-to-timeline" data-show-faces="true"></div>
 	  </div>
@@ -83,7 +102,7 @@
 	    <p>{{.Description}}</p>
 	  </div>
 	  <div class="span4">
-	    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}"/>{{end}}
+	    <p>{{if .Photo}}<img itemprop="photo" src="{{.Photo}}" class="img-rounded"/>{{end}}</p>
 	    <div class="fb-like" data-send="true" data-width="176" data-show-faces="false"></div>
 	    <p class="assert_cooking"><small>I'm <button id="cooking" class="btn">cooking</button> this recipe.</small></p>
 	  </div>
@@ -124,9 +143,10 @@
 	<p>&copy; Daniel Krech 2010-2012 食品当作药品</p>
       </footer>
     </div> <!-- /container -->
+
     <script src="/jquery.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
     {{if .Recipes}}
-    <script src="/bootstrap-carousel.js"></script>
     <script>
       $(function () {
         $('#recipeCarousel').carousel()
@@ -138,8 +158,8 @@
     <script>
     window.fbAsyncInit = function() {
 	FB.init({
-            //appId      : '240290162690790', // dev App ID
-	    appId      : '255665227781659', // App ID
+            appId      : '240290162690790', // dev App ID
+	    //appId      : '255665227781659', // App ID
             //channelUrl : '//www.eikeon.com/channel.html', // Channel File
 	    status     : true, // check login status
 	    cookie     : true, // enable cookies to allow the server to access the session
