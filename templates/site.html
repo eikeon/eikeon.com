@@ -1,0 +1,220 @@
+{{define "html"}}<!DOCTYPE html>
+<html lang="en"
+      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#"
+>
+  <head>
+    <meta charset="utf-8">
+    <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta property="og:title" content="{{.Title}}"/>
+    <meta property="og:site_name" content="Daniel Krech"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="fb:app_id" content="255665227781659">
+    <meta property="fb:admins" content="756782588"/>{{with .Recipe}}
+    <meta property="og:url" content="http://www.eikeon.com/recipe/{{.Id}}/"/>
+    <meta property="og:type" content="eikeonns:recipe" />{{with .Photo}}
+    <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
+    <meta property="og:description"
+          content="{{.Description}}"/>{{end}}
+
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.body-content {
+    margin: 0px 10px;
+    padding: 0px 10px;
+}
+
+xarticle {
+    margin: 10px;
+}
+
+.assert_cooking {
+    display: none;
+}
+.organization {
+    font-size: 14px;
+}
+.timeperiod {
+    font-size: 12px;
+    color: #999999;
+}
+time {
+    font-size: 12px;
+    color: #999999;
+}
+.carousel-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+
+@media print {
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-size: 6pt;
+    }
+
+    .container {
+        margin: 0px 0px;
+        padding: 0px 0px;
+    }
+
+    h1 {
+        font-size: 12pt;
+        margin-top: 0em;
+        padding-top: 0em;
+    }
+    h2 {
+        font-size: 10pt;
+    }
+    h3 {
+        font-size: 8pt;
+    }
+
+    h1 small,
+    .h1 small {
+        font-size: 10px;
+    }
+
+    h2 small,
+    .h2 small {
+        font-size: 8px;
+    }
+
+    h3 small,
+    .h3 small,
+    h4 small,
+    .h4 small {
+        font-size: 6px;
+    }
+
+    .organization {
+        font-size: 6pt;
+    }
+    .timeperiod {
+        font-size: 6pt;
+        color: #999999;
+    }
+}
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top hidden-print">
+      <div class="container">
+        <a class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="navbar-brand" href="/">Daniel Krech</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/recipes/">Recipes</a></li>
+            <li><a href="/resume/">Resume</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container body-content">
+      {{if .}}{{template "content" .}}{{else}}<h1>Not Found</h1>{{end}}
+    </div>
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    {{if .Recipes}}
+    <script>
+      $(function () {
+        $('#recipeCarousel').carousel()
+        $('#recipeCarousel').carousel('next')
+      })
+    </script>
+    {{end}}
+    <div id="fb-root"></div>
+    <script>
+(function($) {
+    function initPage() {
+        $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+        $('a').tooltip()
+    }
+    $(initPage);
+
+})(jQuery)
+
+    window.fbAsyncInit = function() {
+	FB.init({
+	    appId      : '255665227781659', // App ID
+            //channelUrl : '//www.eikeon.com/channel.html', // Channel File
+	    status     : true, // check login status
+	    cookie     : true, // enable cookies to allow the server to access the session
+	    xfbml      : true  // parse XFBML
+	});
+
+	// Additional initialization code here
+
+    {{with .Recipe}}
+	var postCook = function() {
+	    FB.api('/me/eikeonns:cook' +
+		   '?recipe=http://www.eikeon.com/recipe/{{.Id}}/','post',
+		   function(response) {
+		       if (!response || response.error) {
+			   alert('Error occured');
+		       } else {
+			   alert('Post was successful! Action ID: ' + response.id);
+		       }
+		   });
+	}
+
+	var updateButton = function(response) {
+	    var button = document.getElementById('cooking');
+            $('.assert_cooking').show()
+	    if (response.status === 'connected') {
+		button.onclick = function() {
+		    postCook();
+		};
+	    } else {
+		button.onclick = function() {
+		    FB.login(function(response) {
+			if (response.status === 'connected') {
+			    postCook();
+			} else {
+			    alert('need to be logged in to assert cooking');
+			}
+		    });
+		};
+	    }
+	};
+
+	// run it once with the current status and also whenever the status changes
+	FB.getLoginStatus(updateButton);
+	FB.Event.subscribe('auth.statusChange', updateButton);
+    {{end}}
+    };
+
+    // Load the SDK Asynchronously
+    (function(d){
+	var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	js = d.createElement('script'); js.id = id; js.async = true;
+	js.src = "//connect.facebook.net/en_US/all.js";
+	d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
+    </script>
+  </body>
+</html>
+{{end}}

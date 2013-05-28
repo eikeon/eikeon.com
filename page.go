@@ -6,33 +6,22 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 var site_template = template.Must(template.ParseFiles("site.html"))
-var site_style string
-
-func init() {
-	site_style_bytes, err := ioutil.ReadFile("site.css")
-	if err != nil {
-		log.Fatal("could not read site.css")
-	}
-	site_style = minify(string(site_style_bytes))
-}
 
 type page struct {
-	Title      string
-	Stylesheet template.CSS
-	NotFound   bool
-	Recipes    []*Recipe
-	Recipe     *Recipe
+	Title    string
+	NotFound bool
+	Recipes  []*Recipe
+	Recipe   *Recipe
 	// TODO: add baseURL and use URL.ParseURL to resolve relative URLs such as the photo URLs.
 }
 
 func newPage(title string) *page {
-	return &page{Title: title, Stylesheet: template.CSS(site_style)}
+	return &page{Title: title}
 }
 
 func (p *page) Write(w http.ResponseWriter, req *http.Request) (err error) {
