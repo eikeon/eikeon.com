@@ -2,7 +2,7 @@
 {{with .Recipe}}
       <article class="row" itemscope itemtype="http://data-vocabulary.org/Recipe">
 	<div class="row">
-	  <div class="col col-lg-12">
+	  <div class="col-lg-12">
 	    <header>
               <h1 itemprop="name">{{.Name}} <small>Recipe</small></h1>
 	    </header>
@@ -10,22 +10,22 @@
 	</div>
 	<hr>
 	<div class="row">
-	  <div class="col col-lg-6">	    
+	  <div class="col-lg-6">
 	    <p class="lead">{{.Description}}</p>
 	  </div>
-	  <div class="col col-lg-6">
-	    {{if .Photo}}<img class="pull-right" itemprop="photo" src="{{.Photo}}" class="img-rounded"/>{{end}}
+	  <div class="col-lg-6">
+	    {{if .Photo}}<img class="img-responsive xpull-right" itemprop="photo" src="{{.Photo}}" class="img-rounded"/>{{end}}
 	  </div>
 	</div>
 	<hr>
 	<div class="row">
 	  {{if .Ingredients}}
-	  <section class="col col-lg-4 ingredients">
+	  <section class="col-lg-4 ingredients">
             <ul class="ingredients">{{range .Ingredients}}
 	      <li itemprop="ingredient" itemscope itemtype="http://data-vocabulary.org/RecipeIngredient"><span itemprop="name">{{.}}</span></li>{{end}}
             </ul>
 	  </section>{{end}}{{if .Directions}}
-	  <div class="col col-lg-8">
+	  <div class="col-lg-8">
 	    <section class="directions" itemprop="instructions">{{range .Directions}}
               <p>{{.}}</p>{{end}}
 	    </section>
@@ -34,23 +34,23 @@
 	</div>
 	<hr>
 	<div class="row">
-	  <div class="col col-lg-8">
+	  <div class="col-lg-8">
 	    {{if .Attributes}}
 	    <dl class="attributes">{{range $key, $value := .Attributes}}
 	      <dt>{{$key}}</dt>
 	      <dd>{{$value}}</dd>{{end}}
 	    </dl>{{end}}
           </div>
-	  <div class="col col-lg-4"></div>
+	  <div class="col-lg-4"></div>
 	</div>
 	<div class="row">
-	  <div class="col col-lg-6 fb-like" data-send="true" data-width="176" data-show-faces="false"></div>
-	  <div class="col col-lg-6">
+	  <div class="col-lg-6 fb-like" data-send="true" data-width="176" data-show-faces="false"></div>
+	  <div class="col-lg-6">
 	    <p class="assert_cooking"><small>I'm <button id="cooking" class="btn">cooking</button> this recipe.</small></p>
 	  </div>
 	</div>
 	<div class="row">
-          <aside class="col col-lg-12">
+          <aside class="col-lg-12">
             <div class="fb-comments" data-href="http://www.eikeon.com/recipe/{{.Id}}/" data-num-posts="10"></div>
           </aside>
 	</div>

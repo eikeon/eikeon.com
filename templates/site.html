@@ -19,13 +19,41 @@
     <meta property="og:description"
           content="{{.Description}}"/>{{end}}
 
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/{{.Version}}/css/eikeon.min.css" rel="stylesheet">
     <style>
-/* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
-    padding-top: 50px;
+    padding-top: 70px;
     padding-bottom: 20px;
 }
+
+       #marvin {
+           background-image: url('/robot.png');
+           background-size: 50% auto;
+           background-repeat:no-repeat;
+           position: fixed;
+           top: 10;
+           left: 50%;
+           width: 100%;
+           height: 100%;
+           -webkit-filter: blur(3px);
+           filter: blur(5px);
+           z-index: -1000;
+       }
+
+       #nogiushi {
+           background-image: url('/brain-gears-hi.png');
+           background-size: 50% auto;
+           background-repeat:no-repeat;
+           position: fixed;
+           top: 10;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           -webkit-filter: blur(3px);
+           filter: blur(5px);
+           z-index: -1000;
+       }
 
 .body-content {
     margin: 0px 10px;
@@ -113,19 +141,26 @@ time {
         font-size: 6pt;
         color: #999999;
     }
+    time {
+	font-size: 6pt;
+	color: #999999;
+    }
 }
     </style>
   </head>
 
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top hidden-print">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="navbar-brand" href="/">Daniel Krech</a>
-        <div class="nav-collapse collapse">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Daniel Krech</a>
+        </div>
+        <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/recipes/">Recipes</a></li>
             <li><a href="/resume/">Resume</a></li>
@@ -133,14 +168,17 @@ time {
         </div><!--/.nav-collapse -->
       </div>
     </div>
-    <div class="container body-content">
+
+    <div class="container">
+
       {{if .}}{{template "content" .}}{{else}}<h1>Not Found</h1>{{end}}
+
     </div>
-    <script src="/jquery/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/{{.Version}}/js/eikeon.js"></script>
     {{if .Recipes}}
     <script>
       $(function () {
+        $('#recipeCarousel .item:first-child').addClass('active')
         $('#recipeCarousel').carousel()
         $('#recipeCarousel').carousel('next')
       })

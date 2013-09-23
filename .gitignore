@@ -2,5 +2,6 @@ a.out
 *.pyc
 _*
 hu_server
-components
+bower_components
+node_modules
 static
