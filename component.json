@@ -1,7 +1,0 @@
-{
-  "name": "eikeon.com",
-  "version": "0.0.2",
-  "dependencies": {
-    "bootstrap": "~3.0.0"
-  }
-}
