@@ -63,21 +63,38 @@ module.exports = function(grunt) {
                 src: ['js/tests/unit/*.js']
             }
         },
-        recess: {
-            options: {
-                compile: true
-            },
-            eikeon: {
-                files: {
-                    'static/<%= bower.version %>/css/<%= bower.name %>.css': ['less/eikeon.less']
-                }
-            },
-            min: {
+        less: {
+            compileCore: {
                 options: {
-                    compress: true
+                    strictMath: true,
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapURL: '<%= pkg.name %>.css.map',
+                    sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
                 },
                 files: {
-                    'static/<%= bower.version %>/css/<%= bower.name %>.min.css': ['less/eikeon.less']
+                    'static/<%= bower.version %>/css/<%= bower.name %>.css': ['less/<%= pkg.name %>.less']
+                }
+            },
+            compileTheme: {
+                options: {
+                    strictMath: true,
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapURL: '<%= pkg.name %>-theme.css.map',
+                    sourceMapFilename: 'dist/css/<%= pkg.name %>-theme.css.map'
+                },
+                files: {
+                    'dist/css/<%= pkg.name %>-theme.css': 'less/theme.less'
+                }
+            },
+            minify: {
+                options: {
+                    cleancss: true,
+                    report: 'min'
+                },
+                files: {
+                    'static/<%= bower.version %>/css/<%= bower.name %>.min.css': 'static/<%= bower.version %>/css/<%= bower.name %>.css'
                 }
             }
         },
@@ -105,16 +122,7 @@ module.exports = function(grunt) {
         }
     });
 
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-ngmin');
-    grunt.loadNpmTasks('grunt-recess');
-    grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-typescript');
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
     // Test task.
     grunt.registerTask('test', ['jshint']);
@@ -123,7 +131,7 @@ module.exports = function(grunt) {
     grunt.registerTask('static-js', ['typescript', 'ngmin', 'concat', 'uglify']); 
 
     // CSS distribution task.
-    grunt.registerTask('static-css', ['recess']);
+    grunt.registerTask('static-css', ['less']);
 
     // Images distribution task
     grunt.registerTask('static-images', ['copy']);
