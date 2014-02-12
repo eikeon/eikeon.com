@@ -1,27 +1,12 @@
-{{define "content"}}
-{{if .Recipes}}
+{{define "content"}}{{if .Recipes}}
 
-	<h1>Recipes</h1>
-	<div class="row">
-          <div class="col-lg-6">
-	    <ul>{{range .Recipes}}
-	      <li><a href="/recipe/{{.Id}}/">{{.Name}}</a></li>{{end}}
-	    </ul>
-	  </div>
-          <div class="col-lg-6">
-	    <div id="recipeCarousel" class="carousel slide">
-	      <div class="carousel-inner">{{range .Recipes}}{{if .Photo}}
-		<div class="item">
-		  <img class="img-responsive" itemprop="photo" src="{{.Photo}}"/>
-		  <div class="carousel-caption">
-		    <h4><a href="/recipe/{{.Id}}/">{{.Name}}</a></h4>
-		  </div>
-		</div>{{end}}{{end}}
-	      </div>
-	      <a class="carousel-control left" href="#recipeCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-	      <a class="carousel-control right" href="#recipeCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-	    </div>
-	  </div>
-	</div>
-{{end}}
-{{end}}
+<article>
+  <header style="background-image: url(/recipes.jpg);">
+    <h1>Recipes</h1>
+  </header>
+  <ul>{{range .Recipes}}
+    <li><a href="/recipe/{{.Id}}/">{{.Name}}</a></li>{{end}}
+  </ul>
+</article>
+
+{{end}}{{end}}

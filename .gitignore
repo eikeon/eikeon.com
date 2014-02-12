@@ -4,4 +4,4 @@ _*
 hu_server
 bower_components
 node_modules
-static
+static/?.?.?/*

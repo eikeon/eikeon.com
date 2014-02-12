@@ -1,7 +1,5 @@
 {{define "html"}}<!DOCTYPE html>
-<html lang="en"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#"
->
+<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#">
   <head>
     <meta charset="utf-8">
     <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
@@ -16,281 +14,62 @@
     <meta property="og:url" content="http://www.eikeon.com/recipe/{{.Id}}/"/>
     <meta property="og:type" content="eikeonns:recipe" />{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
-    <meta property="og:description"
-          content="{{.Description}}"/>{{end}}
-
+    <meta property="og:description" content="{{.Description}}"/>{{end}}
     <link href="/{{.Version}}/css/eikeon.min.css" rel="stylesheet">
-    <style>
-
-body {
-    padding-top: 70px;
-    padding-bottom: 20px;
-}
-
-       #marvin {
-           background-image: url('/robot.png');
-           background-size: 50% auto;
-           background-repeat:no-repeat;
-           position: fixed;
-           top: 10;
-           left: 50%;
-           width: 100%;
-           height: 100%;
-           -webkit-filter: blur(3px);
-           filter: blur(5px);
-           z-index: -1000;
-       }
-
-       #nogiushi {
-           background-image: url('/brain-gears-hi.png');
-           background-size: 50% auto;
-           background-repeat:no-repeat;
-           position: fixed;
-           top: 10;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           -webkit-filter: blur(3px);
-           filter: blur(5px);
-           z-index: -1000;
-       }
-
-.body-content {
-    margin: 0px 10px;
-    padding: 0px 10px;
-}
-
-xarticle {
-    margin: 10px;
-}
-
-.assert_cooking {
-    display: none;
-}
-.organization {
-    font-size: 14px;
-}
-.timeperiod {
-    font-size: 12px;
-    color: #999999;
-}
-time {
-    font-size: 12px;
-    color: #999999;
-}
-.carousel-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-    </style>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <style>
-
-@media print {
-    body {
-        padding-top: 0px;
-        padding-bottom: 0px;
-        font-size: 6pt;
-    }
-
-    .container {
-        margin: 0px 0px;
-        padding: 0px 0px;
-    }
-
-    h1 {
-        font-size: 12pt;
-        margin-top: 0em;
-        padding-top: 0em;
-    }
-    h2 {
-        font-size: 10pt;
-    }
-    h3 {
-        font-size: 8pt;
-    }
-
-    h1 small,
-    .h1 small {
-        font-size: 10px;
-    }
-
-    h2 small,
-    .h2 small {
-        font-size: 8px;
-    }
-
-    h3 small,
-    .h3 small,
-    h4 small,
-    .h4 small {
-        font-size: 6px;
-    }
-
-    .organization {
-        font-size: 6pt;
-    }
-    .timeperiod {
-        font-size: 6pt;
-        color: #999999;
-    }
-    time {
-	font-size: 6pt;
-	color: #999999;
-    }
-}
-    </style>
   </head>
 
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Daniel Krech</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/recipes/">Recipes</a></li>
-            <li><a href="/resume/">Resume</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+  <body class="loading">
+    <div class="wrapper">
+      <div class="inner-wrapper">
+	<button type="button" class="nav-toggle btn btn-default btn-lg" aria-hidden="true">=</button>
+	<div class="nav-bg">
+	  <nav role="navigation">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/">Daniel Krech</a></li>
+              <li><a href="/recipes/">Recipes</a></li>
+              <li><a href="/resume/">Resume</a></li>
+            </ul>
+	    <ul class="nav nav-pills nav-stacked see-also">
+	      <li>
+		<a href="http://nogiushi.com/">
+		  <img src="/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
+		</a>
+	      </li>
+	      <li>
+		<a href="https://medium.com/@eikeon">
+		  <img src="/{{.Version}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
+		</a>
+	      </li>
+	      <li>
+		<a href="https://github.com/eikeon">
+		  <img src="/{{.Version}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
+		</a>
+	      </li>
+	      <li>
+		<a href="https://facebook.com/eikeon">
+		  <img src="/{{.Version}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
+		</a>
+	      </li>
+	      <li>
+		<a href="https://twitter.com/eikeon">
+		  <img src="/{{.Version}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
+		</a>
+	      </li>
+	      <li>
+		<a href="https://flipboard.com/section/marvin-bRwcpK">
+		  <img src="/{{.Version}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
+		</a>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
+	<div role="main">
+	  {{if .}}{{template "content" .}}{{else}}<h1>Not Found</h1>{{end}}
+	</div>
+	<div id="fb-root"></div>
+	<script src="/{{.Version}}/js/eikeon.js"></script>
       </div>
     </div>
-
-    <div class="container">
-
-      {{if .}}{{template "content" .}}{{else}}<h1>Not Found</h1>{{end}}
-
-    </div>
-
-    <footer>
-      <div class="container">
-	<ul class="list-inline see-also">
-	  <li>
-	    <a href="http://nogiushi.com/">
-	      <img src="/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
-	    </a>
-	  </li>
-	  <li>
-	    <a href="https://medium.com/@eikeon">
-	      <img src="/{{.Version}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
-	    </a>
-	  </li>
-	  <li>
-	    <a href="https://github.com/eikeon">
-	      <img src="/{{.Version}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
-	    </a>
-	  </li>
-	  <li>
-	    <a href="https://facebook.com/eikeon">
-	      <img src="/{{.Version}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
-	    </a>
-	  </li>
-	  <li>
-	    <a href="https://twitter.com/eikeon">
-	      <img src="/{{.Version}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
-	    </a>
-	  </li>
-	  <li>
-	    <a href="https://flipboard.com/section/marvin-bRwcpK">
-	      <img src="/{{.Version}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
-	    </a>
-	  </li>
-	</ul>
-      </div>
-    </footer>
-
-    <script src="/{{.Version}}/js/eikeon.js"></script>
-    {{if .Recipes}}
-    <script>
-      $(function () {
-        $('#recipeCarousel .item:first-child').addClass('active')
-        $('#recipeCarousel').carousel()
-        $('#recipeCarousel').carousel('next')
-      })
-    </script>
-    {{end}}
-    <div id="fb-root"></div>
-    <script>
-(function($) {
-    function initPage() {
-        $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
-        $('a').tooltip()
-    }
-    $(initPage);
-
-})(jQuery)
-
-    window.fbAsyncInit = function() {
-	FB.init({
-	    appId      : '255665227781659', // App ID
-            //channelUrl : '//www.eikeon.com/channel.html', // Channel File
-	    status     : true, // check login status
-	    cookie     : true, // enable cookies to allow the server to access the session
-	    xfbml      : true  // parse XFBML
-	});
-
-	// Additional initialization code here
-
-    {{with .Recipe}}
-	var postCook = function() {
-	    FB.api('/me/eikeonns:cook' +
-		   '?recipe=http://www.eikeon.com/recipe/{{.Id}}/','post',
-		   function(response) {
-		       if (!response || response.error) {
-			   alert('Error occured');
-		       } else {
-			   alert('Post was successful! Action ID: ' + response.id);
-		       }
-		   });
-	}
-
-	var updateButton = function(response) {
-	    var button = document.getElementById('cooking');
-            $('.assert_cooking').show()
-	    if (response.status === 'connected') {
-		button.onclick = function() {
-		    postCook();
-		};
-	    } else {
-		button.onclick = function() {
-		    FB.login(function(response) {
-			if (response.status === 'connected') {
-			    postCook();
-			} else {
-			    alert('need to be logged in to assert cooking');
-			}
-		    });
-		};
-	    }
-	};
-
-	// run it once with the current status and also whenever the status changes
-	FB.getLoginStatus(updateButton);
-	FB.Event.subscribe('auth.statusChange', updateButton);
-    {{end}}
-    };
-
-    // Load the SDK Asynchronously
-    (function(d){
-	var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-	js = d.createElement('script'); js.id = id; js.async = true;
-	js.src = "//connect.facebook.net/en_US/all.js";
-	d.getElementsByTagName('head')[0].appendChild(js);
-    }(document));
-    </script>
   </body>
 </html>
 {{end}}

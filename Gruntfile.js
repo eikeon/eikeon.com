@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 stripBanners: false
             },
             eikeon: {
-                src: ['bower_components/jquery/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js'],
+                src: ['bower_components/jquery/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'js/<%= bower.name %>.js'],
                 dest: 'static/<%= bower.version %>/js/<%= bower.name %>.js'
             }
         },
