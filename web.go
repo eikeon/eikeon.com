@@ -136,7 +136,7 @@ func ListenAndServe(address string) {
 	})
 
 	handleTemplate("/resume/", "resume", templateData{})
-	handleTemplate("/recipes/", "recipes", templateData{"Recipes": Recipes})
+	handleTemplate("/recipes/", "recipes", templateData{"Recipes": Recipes, "Title": "Recipes"})
 
 	t := getTemplate("templates/" + "recipe" + ".html")
 	http.HandleFunc("/recipe/", func(w http.ResponseWriter, req *http.Request) {
@@ -149,6 +149,7 @@ func ListenAndServe(address string) {
 			//return
 		} else {
 			d["Recipe"] = r
+			d["Title"] = r.Name
 			d["Found"] = true
 			if req.URL.Path[len(req.URL.Path)-1] != '/' {
 				http.Redirect(w, req, req.URL.Path+"/", http.StatusMovedPermanently)
