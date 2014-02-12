@@ -54,6 +54,16 @@ func (le *longExpireHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	le.h.ServeHTTP(w, r)
 }
 
+func CanonicalHostHandler(w http.ResponseWriter, req *http.Request) {
+	var canonical = "www.eikeon.com"
+	if req.Host != canonical {
+		http.Redirect(w, req, "http://"+canonical+req.URL.Path, http.StatusMovedPermanently)
+	} else {
+		http.Error(w, "", http.StatusInternalServerError)
+	}
+	// TODO: set CacheControl
+}
+
 func getTemplate(name string) *template.Template {
 	if t, ok := templates[name]; ok {
 		return t
@@ -109,6 +119,8 @@ func handleTemplate(prefix, name string, data templateData) {
 }
 
 func ListenAndServe(address string) {
+	http.Handle("eikeon.com/", http.HandlerFunc(CanonicalHostHandler))
+
 	fs := longExpire(http.FileServer(http.Dir(path.Join(Root, "static/"))))
 	http.Handle("/"+pkg.Version+"/", fs)
 
