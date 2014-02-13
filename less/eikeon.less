@@ -53,6 +53,7 @@ article {
       	    min-width: 300px;
 	    max-width: 500px;
 	    flex: 1 1 0;
+	    text-align:center;
 	}
 	img {
 	    display: none;
@@ -73,4 +74,36 @@ article {
 footer {
   background-color: @gray-lighter;
   padding: 20px 0px;
+}
+
+.recipes {
+    width: 100%;
+    ul {
+	width: 100%;
+	max-width: 100%;
+	display: -webkit-flex;
+	-webkit-flex-flow: row wrap;
+	-webkit-justify-content: center;
+    }
+    li {
+	padding: 10px;
+    }
+    div {
+	height: 200px;
+	width: 300px;
+	background-size: cover;
+	background-color: @gray-dark;
+	display: -webkit-flex;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+	-webkit-flex-flow: row wrap;
+    }
+    a {
+	color: white;
+    }
+    h1 {
+	font-size: 20px;
+	padding: 10px;
+	text-align:center;
+    }
 }
