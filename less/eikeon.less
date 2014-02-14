@@ -87,23 +87,37 @@ footer {
     }
     li {
 	padding: 10px;
+	div {
+	    height: 200px;
+	    width: 300px;
+	    background-size: cover;
+	    background-color: @gray-dark;
+	    display: -webkit-flex;
+	    -webkit-align-items: center;
+	    -webkit-justify-content: center;
+	    -webkit-flex-flow: row wrap;
+	}
+	a {
+	    color: white;
+	}
+	h1 {
+	    font-size: 20px;
+	    padding: 10px;
+	    text-align:center;
+	}
     }
-    div {
-	height: 200px;
-	width: 300px;
-	background-size: cover;
-	background-color: @gray-dark;
-	display: -webkit-flex;
-	-webkit-align-items: center;
-	-webkit-justify-content: center;
-	-webkit-flex-flow: row wrap;
-    }
-    a {
-	color: white;
-    }
-    h1 {
-	font-size: 20px;
-	padding: 10px;
-	text-align:center;
+    aside {
+	width: 100%;
+	max-width: 100%;
+	> div {
+	    display: -webkit-flex;
+	    -webkit-flex-flow: row wrap;
+	    -webkit-justify-content: center;
+	    -webkit-align-items: flex-start;
+	    > div {
+		padding: 10px;
+		min-width: 320px;
+	    }
+	}
     }
 }
