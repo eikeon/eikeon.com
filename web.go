@@ -4,55 +4,29 @@ import (
 	"bytes"
 	"crypto/md5"
 	"encoding/json"
+	"flag"
 	"fmt"
-	"go/build"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"path"
+	"regexp"
+	"strings"
 )
 
-var pkg struct {
-	Version string `json:"version"`
+var pages map[string]struct {
+	Name        string
+	Title       string
+	Description string
+	Photo       string
 }
-var Root string
+
 var site *template.Template
 var templates = make(map[string]*template.Template)
 
-func init() {
-	if p, err := build.Default.Import("github.com/eikeon/eikeon.com", "", build.FindOnly); err == nil {
-		Root = p.Dir
-	} else {
-		log.Println("WARNING: could not import package:", err)
-	}
-
-	if j, err := os.OpenFile(path.Join(Root, "bower.json"), os.O_RDONLY, 0666); err == nil {
-		dec := json.NewDecoder(j)
-		if err = dec.Decode(&pkg); err != nil {
-			log.Println("WARNING: could not decode bower.json", err)
-		}
-		j.Close()
-	} else {
-		log.Println("WARNING: could not open bower.json", err)
-	}
-
-}
-
-type longExpireHandler struct {
-	h http.Handler
-}
-
-func longExpire(h http.Handler) http.Handler {
-	return &longExpireHandler{h}
-}
-
-func (le *longExpireHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ttl := int64(365 * 86400)
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", ttl))
-	le.h.ServeHTTP(w, r)
-}
+var PERM = regexp.MustCompile("[0-9a-f]{8}~")
 
 func CanonicalHostHandler(w http.ResponseWriter, req *http.Request) {
 	var canonical = "www.eikeon.com"
@@ -61,7 +35,6 @@ func CanonicalHostHandler(w http.ResponseWriter, req *http.Request) {
 	} else {
 		http.Error(w, "", http.StatusInternalServerError)
 	}
-	// TODO: set CacheControl
 }
 
 func getTemplate(name string) *template.Template {
@@ -69,13 +42,13 @@ func getTemplate(name string) *template.Template {
 		return t
 	} else {
 		if site == nil {
-			site = template.Must(template.ParseFiles(path.Join(Root, "templates/site.html")))
+			site = template.Must(template.ParseFiles(path.Join(*Root, "templates/site.html")))
 		}
 		t, err := site.Clone()
 		if err != nil {
 			log.Fatal("cloning site: ", err)
 		}
-		t = template.Must(t.ParseFiles(path.Join(Root, name)))
+		t = template.Must(t.ParseFiles(path.Join(*Root, "templates/"+name+".html")))
 		templates[name] = t
 		return t
 	}
@@ -97,65 +70,91 @@ func writeTemplate(t *template.Template, d templateData, w http.ResponseWriter) 
 	}
 }
 
-func handleTemplate(prefix, name string, data templateData) {
-	t := getTemplate("templates/" + name + ".html")
-	http.HandleFunc(prefix, func(w http.ResponseWriter, req *http.Request) {
-		d := templateData{}
-		d["Title"] = name
-		d["Version"] = pkg.Version
-		if data != nil {
-			for k, v := range data {
-				d[k] = v
-			}
-		}
-		if req.URL.Path == prefix {
-			d["Found"] = true
-		} else {
-			w.Header().Set("Cache-Control", "max-age=10, must-revalidate")
-			w.WriteHeader(http.StatusNotFound)
-		}
-		writeTemplate(t, d, w)
-	})
-}
-
 func ListenAndServe(address string) {
+	if j, err := os.OpenFile(path.Join(*Root, "pages.json"), os.O_RDONLY, 0666); err == nil {
+		dec := json.NewDecoder(j)
+		if err = dec.Decode(&pages); err != nil {
+			log.Println("WARNING: could not decode pages.json", err)
+		}
+		j.Close()
+	} else {
+		log.Println("WARNING: could not open pages.json", err)
+	}
+
+	static := http.Dir(path.Join(*Root, "static/"))
+
 	http.Handle("eikeon.com/", http.HandlerFunc(CanonicalHostHandler))
 
-	fs := longExpire(http.FileServer(http.Dir(path.Join(Root, "static/"))))
-	http.Handle("/"+pkg.Version+"/", fs)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		d := templateData{"Recipes": Recipes}
+		t := getTemplate("404")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		if req.URL.Path == "/" {
-			d := templateData{"Version": pkg.Version, "Recipes": Recipes}
-			t := getTemplate("templates/" + "home" + ".html")
-			writeTemplate(t, d, w)
+		if page, ok := pages[r.URL.Path]; ok {
+			t = getTemplate(page.Name)
+			d["Title"] = page.Title
+			d["Description"] = page.Description
+			d["Photo"] = page.Photo
+		} else if r.URL.Path == "/recipes" {
+			http.Redirect(w, r, r.URL.Path+"/", http.StatusMovedPermanently)
+		} else if strings.HasPrefix(r.URL.Path, "/recipe/") {
+			var recipe = Recipes[path.Base(r.URL.Path)]
+			if recipe == nil {
+				w.Header().Set("Cache-Control", "max-age=10, must-revalidate")
+				w.WriteHeader(http.StatusNotFound)
+			} else {
+				t = getTemplate("recipe")
+				d["Recipe"] = recipe
+				d["Title"] = recipe.Name
+				d["Type"] = "eikeonns:recipe"
+				d["Description"] = recipe.Description
+				if r.URL.Path[len(r.URL.Path)-1] != '/' {
+					http.Redirect(w, r, r.URL.Path+"/", http.StatusMovedPermanently)
+					return
+				}
+				d["Path"] = r.URL.Path
+				d["Photo"] = recipe.Photo
+			}
 		} else {
-			fs.ServeHTTP(w, req)
-			return
-		}
-	})
-
-	handleTemplate("/resume/", "resume", templateData{})
-	handleTemplate("/recipes/", "recipes", templateData{"Recipes": Recipes, "Title": "Recipes"})
-
-	t := getTemplate("templates/" + "recipe" + ".html")
-	http.HandleFunc("/recipe/", func(w http.ResponseWriter, req *http.Request) {
-		d := templateData{"Version": pkg.Version}
-		var r = Recipes[path.Base(req.URL.Path)]
-		if r == nil {
-			d["Found"] = false
-			w.Header().Set("Cache-Control", "max-age=10, must-revalidate")
-			w.WriteHeader(http.StatusNotFound)
-			//return
-		} else {
-			d["Recipe"] = r
-			d["Title"] = r.Name
-			d["Found"] = true
-			if req.URL.Path[len(req.URL.Path)-1] != '/' {
-				http.Redirect(w, req, req.URL.Path+"/", http.StatusMovedPermanently)
-				return
+			upath := r.URL.Path
+			if !strings.HasPrefix(upath, "/") {
+				upath = "/" + upath
+				r.URL.Path = upath
+			}
+			f, err := static.Open(path.Clean(upath))
+			if err == nil {
+				defer f.Close()
+				d, err1 := f.Stat()
+				if err1 != nil {
+					http.Error(w, "could not stat file", http.StatusInternalServerError)
+					return
+				}
+				url := r.URL.Path
+				if d.IsDir() {
+					if url[len(url)-1] != '/' {
+						http.Redirect(w, r, url+"/", http.StatusMovedPermanently)
+						return
+					}
+				} else {
+					if url[len(url)-1] == '/' {
+						http.Redirect(w, r, url[0:len(url)-1], http.StatusMovedPermanently)
+						return
+					}
+				}
+				if d.IsDir() {
+					w.WriteHeader(http.StatusNotFound)
+				} else {
+					if PERM.MatchString(path.Base(url)) {
+						ttl := int64(365 * 86400)
+						w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", ttl))
+					}
+					http.ServeContent(w, r, d.Name(), d.ModTime(), f)
+					return
+				}
+			} else {
+				w.WriteHeader(http.StatusNotFound)
 			}
 		}
+		d["Path"] = r.URL.Path
 		writeTemplate(t, d, w)
 	})
 
@@ -163,4 +162,24 @@ func ListenAndServe(address string) {
 	if err != nil {
 		log.Print("ListenAndServe:", err)
 	}
+}
+
+var Address *string
+var Root *string
+var RecipesLocation *string
+
+func main() {
+	Address = flag.String("address", ":9999", "http service address")
+	Root = flag.String("root", ".", "...")
+	RecipesLocation = flag.String("recipes", "recipes", "location of recipes")
+	flag.Parse()
+
+	f, err := os.Open(*RecipesLocation)
+	if err == nil {
+		initRecipes(f)
+	} else {
+		log.Print(err)
+	}
+
+	ListenAndServe(*Address)
 }

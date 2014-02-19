@@ -20,15 +20,6 @@ module.exports = function(grunt) {
 		command: 'go install -v ./...'
             }
 	},
-        clean: {
-            static: ['static/<%= bower.name %>/', 'build']
-        },
-        ngmin: {
-            eikeon: {
-                src: ['js/<%= bower.name %>.js'],
-                dest: 'build/js/<%= bower.name %>.annotate.js'
-            },
-        },
         concat: {
             options: {
                 banner: '<%= banner %>',
@@ -36,7 +27,7 @@ module.exports = function(grunt) {
             },
             eikeon: {
                 src: ['bower_components/jquery/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'js/<%= bower.name %>.js'],
-                dest: 'static/<%= bower.version %>/js/<%= bower.name %>.js'
+                dest: 'dist/static/js/<%= bower.name %>.js'
             }
         },
         uglify: {
@@ -45,7 +36,7 @@ module.exports = function(grunt) {
             },
             eikeon: {
                 files: {
-                    'static/<%= bower.version %>/js/<%= bower.name %>.min.js': ['<%= concat.eikeon.dest %>']
+                    'dist/static/js/<%= bower.name %>.min.js': ['<%= concat.eikeon.dest %>']
                 }
             }
         },
@@ -70,10 +61,10 @@ module.exports = function(grunt) {
                     sourceMap: true,
                     outputSourceFiles: true,
                     sourceMapURL: '<%= pkg.name %>.css.map',
-                    sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
+                    sourceMapFilename: 'dist/static/css/<%= pkg.name %>.css.map'
                 },
                 files: {
-                    'static/<%= bower.version %>/css/<%= bower.name %>.css': ['less/<%= pkg.name %>.less']
+                    'dist/static/css/<%= bower.name %>.css': ['less/<%= pkg.name %>.less']
                 }
             },
             compileTheme: {
@@ -82,10 +73,10 @@ module.exports = function(grunt) {
                     sourceMap: true,
                     outputSourceFiles: true,
                     sourceMapURL: '<%= pkg.name %>-theme.css.map',
-                    sourceMapFilename: 'dist/css/<%= pkg.name %>-theme.css.map'
+                    sourceMapFilename: 'dist/static/css/<%= pkg.name %>-theme.css.map'
                 },
                 files: {
-                    'dist/css/<%= pkg.name %>-theme.css': 'less/theme.less'
+                    'dist/static/css/<%= pkg.name %>-theme.css': 'less/theme.less'
                 }
             },
             minify: {
@@ -94,30 +85,95 @@ module.exports = function(grunt) {
                     report: 'min'
                 },
                 files: {
-                    'static/<%= bower.version %>/css/<%= bower.name %>.min.css': 'static/<%= bower.version %>/css/<%= bower.name %>.css'
+                    'dist/static/css/<%= bower.name %>.min.css': 'dist/static/css/<%= bower.name %>.css'
                 }
-            }
-        },
-        typescript: {
-            base: {
-                src: ['bower_components/hue-color-converter/colorconverter.ts'],
-                dest: 'build/js/colorconverter.js'
             }
         },
         copy: {
             images: {
                 files: [
                     {
-                        src: 'images/*',
-                        dest: 'static/<%= bower.version %>/'
+                        expand: true,
+                        cwd: 'images/',
+                        src: ['**/*.{png,jpg,gif}'],
+                        dest: 'dist/static/images/'
+                    },
+                    {
+                        src: ['templates/*', 'recipes', 'pages.json'],
+                        dest: 'dist/'
                     },
                     {
 			expand: true,
 			cwd: 'bower_components/bootstrap/dist/',
                         src: ['fonts/*'],
-                        dest: 'static/<%= bower.version %>/'
+                        dest: 'dist/static/'
                     }
                 ]
+            },
+            sfiles: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'static/',
+                        src: ['robots.txt', 'favicon.ico'],
+                        dest: 'dist/static/'
+                    }
+                ]
+            }
+        },
+        imagemin: {
+            dynamic: {
+                options: {
+                    optimizationLevel: 3,
+                    progressive: false              
+                    //cache: false
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'images/',
+                    src: ['**/*.{png,gif}'],
+                    dest: 'dist/static/images/'
+                }]
+            }
+        },
+        pngmin: {
+            compile: {
+                options: {
+                    ext: '.png'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'images/',
+                    src: ['**/*.png'],
+                    dest: 'dist/static/images/'
+                }]
+            }
+        },
+        hashres: {
+            // Global options
+            options: {
+                // Optional. Encoding used to read/write files. Default value 'utf8'
+                encoding: 'utf8',
+                // Optional. Format used to name the files specified in 'files' property.
+                // Default value: '${hash}.${name}.cache.${ext}'
+                fileNameFormat: '${hash}~${name}.${ext}',
+                // Optional. Should files be renamed or only alter the references to the files
+                // Use it with '${name}.${ext}?${hash} to get perfect caching without renaming your files
+                // Default value: true
+                renameFiles: true
+            },
+            // hashres is a multitask. Here 'prod' is the name of the subtask. You can have as many as you want.
+            prod: {
+                // Specific options, override the global ones
+                options: {
+                    // You can override encoding, fileNameFormat or renameFiles
+                },
+                // Files to hash
+                src: [
+                    // WARNING: These files will be renamed!
+                    'dist/static/**/*.*', '!dist/static/**/*~*.*', '!dist/static/robots.txt', '!dist/static/favicon.ico'],
+                // File that refers to above files and needs to be updated with the hashed name
+                dest: ['dist/templates/*.html', 'dist/recipes', 'dist/pages.json'],
             }
         }
     });
@@ -128,18 +184,19 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jshint']);
 
     // JS distribution task.
-    grunt.registerTask('static-js', ['typescript', 'ngmin', 'concat', 'uglify']); 
+    grunt.registerTask('static-js', ['concat', 'uglify']);
 
     // CSS distribution task.
     grunt.registerTask('static-css', ['less']);
 
     // Images distribution task
-    grunt.registerTask('static-images', ['copy']);
+    grunt.registerTask('static-fonts', ['copy']);
+    grunt.registerTask('static-images', []);
 
     // Full distribution task.
-    grunt.registerTask('static', ['clean', 'static-css', 'static-js', 'static-images']);
+    grunt.registerTask('static', ['static-css', 'static-js', 'static-images', 'static-fonts']);
 
     // Default task.
-    grunt.registerTask('default', ['shell', 'test', 'static']);
+    grunt.registerTask('default', ['shell', 'test', 'static', 'hashres']);
 
 };

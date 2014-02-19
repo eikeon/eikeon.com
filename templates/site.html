@@ -4,70 +4,66 @@
     <meta charset="utf-8">
     <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <meta property="og:title" content="{{.Title}}"/>
     <meta property="og:site_name" content="Daniel Krech"/>
     <meta property="og:locale" content="en_US"/>
     <meta property="fb:app_id" content="255665227781659">
-    <meta property="fb:admins" content="756782588"/>{{with .Recipe}}
-    <meta property="og:url" content="http://www.eikeon.com/recipe/{{.Id}}/"/>
-    <meta property="og:type" content="eikeonns:recipe" />{{with .Photo}}
+    <meta property="fb:admins" content="756782588"/>
+    <meta property="og:url" content="http://www.eikeon.com{{.Path}}"/>{{with .Type}}
+    <meta property="og:type" content="{{.}}" />{{end}}
+    <meta property="og:description" content="{{.Description}}"/>{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
-    <meta property="og:description" content="{{.Description}}"/>{{end}}
-    <link href="/{{.Version}}/css/eikeon.min.css" rel="stylesheet">
+    <link href="/css/eikeon.min.css" rel="stylesheet">
   </head>
-
   <body class="loading">
     <div class="wrapper">
       <div class="inner-wrapper">
 	<button type="button" class="nav-toggle btn btn-default btn-lg" aria-hidden="true">=</button>
+	<div role="main">
+	  {{template "content" .}}
+	</div>
 	<div class="nav-bg">
 	  <nav role="navigation">
             <ul class="nav nav-pills nav-stacked">
               <li><a href="/">Daniel Krech</a></li>
               <li><a href="/recipes/">Recipes</a></li>
-              <li><a href="/resume/">Resume</a></li>
             </ul>
 	    <ul class="nav nav-pills nav-stacked see-also">
 	      <li>
 		<a href="http://nogiushi.com/">
-		  <img src="/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
+		  <img src="/images/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
 		</a>
 	      </li>
 	      <li>
 		<a href="https://medium.com/@eikeon">
-		  <img src="/{{.Version}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
+		  <img src="/images/medium.png" class="img-rounded" alt="eikeon @medium" />
 		</a>
 	      </li>
 	      <li>
 		<a href="https://github.com/eikeon">
-		  <img src="/{{.Version}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
+		  <img src="/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://facebook.com/eikeon">
-		  <img src="/{{.Version}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
+		  <img src="/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://twitter.com/eikeon">
-		  <img src="/{{.Version}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
+		  <img src="/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://flipboard.com/section/marvin-bRwcpK">
-		  <img src="/{{.Version}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
+		  <img src="/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
 		</a>
 	      </li>
 	    </ul>
 	  </nav>
 	</div>
-	<div role="main">
-	  {{if .}}{{template "content" .}}{{else}}<h1>Not Found</h1>{{end}}
-	</div>
 	<div id="fb-root"></div>
-	<script src="/{{.Version}}/js/eikeon.js"></script>
+	<script src="/js/eikeon.js"></script>
       </div>
     </div>
   </body>

@@ -5,3 +5,4 @@ hu_server
 bower_components
 node_modules
 static/?.?.?/*
+dist/

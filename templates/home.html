@@ -1,9 +1,10 @@
 {{define "content"}}
 
 <article>  
-  <header style="background-image: url(/tobe.jpg);">
+  <header style="background-image: url({{.Photo}});">
     <h1>Daniel Krech <small>eikeon</small></h1>
   </header>
+  <p class="lead">{{.Description}}</p>
 </article>
 
 {{end}}

@@ -1,6 +1,6 @@
 {{define "content"}}{{with .Recipe}}
 <article class="recipe" itemscope itemtype="http://data-vocabulary.org/Recipe">
-  <header style="background-image: url({{if .Photo}}{{.Photo}}{{end}});">
+  <header{{if .Photo}} style="background-image: url({{.Photo}});"{{end}}>
     <h1 itemprop="name">{{.Name}} <small>Recipe</small></h1>
     {{if .Photo}}<img itemprop="photo" src="{{.Photo}}" class="img-rounded"/>{{end}}
   </header>
