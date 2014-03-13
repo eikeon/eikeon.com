@@ -44,9 +44,9 @@ var Recipe_list RecipeArray
 func initRecipes(reader io.Reader) {
 	rune_scanner := bufio.NewReader(reader)
 	expression := hu.ReadDocument(rune_scanner)
-	fmt.Printf("expression: %T %v\n", expression, len(expression))
+	//fmt.Printf("expression: %T %v\n", expression, len(expression))
 	for _, rexp := range expression {
-		fmt.Printf("rexp: %v %v\n", rexp, len(rexp.(hu.Part)))
+		//fmt.Printf("rexp: %v %v\n", rexp, len(rexp.(hu.Part)))
 		recipe := &Recipe{}
 		recipe.Name = strings.Trim(rexp.(hu.Part)[0].String(), " \n§")
 		recipe.Description = rexp.(hu.Part)[1].String()

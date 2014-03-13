@@ -1,19 +1,36 @@
-{
-    "/": {
-	"Name": "home",
-	"Title": "Daniel Krech",
-	"Description": "",
-	"Photo": "/images/tobe.jpg"
-    },
-    "/recipes/": {
-	"Name": "recipes",
-	"Title": "",
-	"Description": "Some healthy and delicious recipes.",
-	"Photo": "/images/recipes.jpg"	
-    },
-    "/resume/": {
-	"Name": "resume",
-	"Title": "Daniel Krech's Resume",
-	"Description": "Daniel Krech's resume."
-    }
-}
+[
+        {
+            "Path": "/",
+	    "Name": "home",
+            "Data": {
+                "Title": "Daniel Krech",
+	        "Description": "",
+	        "Photo": "/images/tobe.jpg"
+            }
+        },
+        {
+            "Path": "/recipes/",
+	    "Name": "recipes",
+            "Data": {
+                "Title": "Recipes",
+	        "Description": "Some healthy and delicious recipes.",
+	        "Photo": "/images/recipes.jpg"
+            }
+        },
+        {
+            "Path": "/recipe/{id:[^/]+}/",
+            "Name": "recipe",
+            "Data": {
+                "Type": "eikeonns:recipe"
+            }
+        },
+        {
+            "Path": "/resume/",
+	    "Name": "resume",
+            "Data": {
+                "Title": "Daniel Krech's Resume",
+	        "Description": "Daniel Krech's resume."
+            }
+        }
+]
+

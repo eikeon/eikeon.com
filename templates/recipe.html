@@ -29,4 +29,10 @@
       <div class="fb-comments" data-href="http://www.eikeon.com/recipe/{{.Id}}/" data-num-posts="10"></div>
     </div>
   </aside>
-</article>{{end}}{{end}}
+</article>{{else}}
+<article>
+  <header>
+    <h1>Recipe Not Found</h1>
+  </header>
+</article>
+{{end}}{{end}}
