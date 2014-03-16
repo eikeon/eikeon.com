@@ -1,4 +1,8 @@
-[
+{
+    "Name": "Daniel Krech",
+    "Host": "www.eikeon.com",
+    "Static": "http://static.eikeon.com",
+    "Routes": [
         {
             "Path": "/",
 	    "Name": "home",
@@ -31,6 +35,13 @@
                 "Title": "Daniel Krech's Resume",
 	        "Description": "Daniel Krech's resume."
             }
+        },
+        {
+            "Path": "/mediator/",
+            "Name": "mediator",
+            "Data": {
+                "Title": "..."
+            }
         }
-]
-
+    ]
+}

@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/edsu/mediator/medium"
 	"github.com/eikeon/web"
 )
 
 func main() {
-	Address := flag.String("address", "localhost:9999", "http service address")
-	Host := flag.String("host", "www.eikeon.com", "")
+	Address := flag.String("address", ":9999", "http service address")
 	Root := flag.String("root", ".", "...")
 	RecipesLocation := flag.String("recipes", "recipes", "location of recipes")
 	flag.Parse()
@@ -24,15 +24,18 @@ func main() {
 
 	web.Root = Root
 
-	getters := web.Getters{
-		"home":    GetResource,
-		"recipes": GetRecipesResource,
-		"recipe":  GetRecipeResource,
-		"resume":  GetResource,
-	}
+	h := web.NewHub()
+	go func() {
+		for mention := range medium.Tweets() {
+			h.In <- web.Message{"Tweet": mention.Tweet, "Story": mention.Story, "Count": mention.Count}
+		}
+	}()
+	http.Handle("/messages", h.Handler())
 
-	if h, err := web.Handler(*Host, getters); err == nil {
-		server := &http.Server{Addr: *Address, Handler: h}
+	var s Site
+	if h, err := web.Handler(&s); err == nil {
+		http.Handle("/", h)
+		server := &http.Server{Addr: *Address}
 		log.Println("starting server on", server.Addr)
 		if err := server.ListenAndServe(); err != nil {
 			log.Println(err)

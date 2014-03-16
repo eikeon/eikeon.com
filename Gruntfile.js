@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			cwd: '.'
                     }
 		},
-		command: 'go install -v ./...'
+		command: 'go install -v .'
             }
 	},
         concat: {
@@ -28,6 +28,10 @@ module.exports = function(grunt) {
             eikeon: {
                 src: ['bower_components/jquery/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'js/<%= bower.name %>.js'],
                 dest: 'dist/static/js/<%= bower.name %>.js'
+            },
+            mediatorjs: {
+                src: ['bower_components/jquery/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'bower_components/angular/angular.min.js', 'bower_components/angular-animate/angular-animate.min.js', 'bower_components/angular-ui-bootstrap/index.js', 'bower_components/mediator/js/mediator.js'],
+                dest: 'dist/static/js/mediator.js'
             }
         },
         uglify: {
@@ -99,6 +103,12 @@ module.exports = function(grunt) {
                         dest: 'dist/static/images/'
                     },
                     {
+                        expand: true,
+                        cwd: 'bower_components/mediator/',
+                        src: ['images/question.png'],
+                        dest: 'dist/static/'
+                    },
+                    {
                         src: ['templates/*', 'recipes', 'pages.json'],
                         dest: 'dist/'
                     },
@@ -109,6 +119,11 @@ module.exports = function(grunt) {
                         dest: 'dist/static/'
                     }
                 ]
+            },
+            mediator: {
+                files: {
+                    'dist/templates/mediator.html': 'bower_components/mediator/templates/home.html'
+                }
             },
             sfiles: {
                 files: [
@@ -173,7 +188,7 @@ module.exports = function(grunt) {
                     // WARNING: These files will be renamed!
                     'dist/static/**/*.*', '!dist/static/**/*~*.*', '!dist/static/robots.txt', '!dist/static/favicon.ico'],
                 // File that refers to above files and needs to be updated with the hashed name
-                dest: ['dist/templates/*.html', 'dist/recipes', 'dist/pages.json'],
+                dest: ['dist/templates/*.html', 'dist/recipes', 'dist/pages.json']
             }
         }
     });

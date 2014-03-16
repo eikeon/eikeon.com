@@ -1,11 +1,12 @@
 {{define "html"}}<!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#">
-  <head>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#" ng-app="MediatorApp">{{$Static := .Site.Static}}  
+  <head>{{if eq .Path "/mediator/"}}
+    <script src="{{$Static}}/js/mediator.js"></script>{{end}}
     <meta charset="utf-8">
-    <title>{{with .Title}}{{.}} « {{end}}Daniel Krech</title>
+    <title>{{with .Title}}{{.}} « {{end}}{{.Site.Name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="{{.Title}}"/>
-    <meta property="og:site_name" content="Daniel Krech"/>
+    <meta property="og:site_name" content="{{.Site.Name}}"/>
     <meta property="og:locale" content="en_US"/>
     <meta property="fb:app_id" content="255665227781659">
     <meta property="fb:admins" content="756782588"/>
@@ -13,7 +14,7 @@
     <meta property="og:type" content="{{.}}" />{{end}}
     <meta property="og:description" content="{{.Description}}"/>{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
-    <link href="/css/eikeon.min.css" rel="stylesheet">
+    <link href="{{$Static}}/css/eikeon.min.css" rel="stylesheet">
   </head>
   <body class="loading">
     <div class="wrapper">
@@ -25,45 +26,45 @@
 	<div class="nav-bg">
 	  <nav role="navigation">
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">Daniel Krech</a></li>
+              <li><a href="/">{{.Site.Name}}</a></li>
               <li><a href="/recipes/">Recipes</a></li>
             </ul>
 	    <ul class="nav nav-pills nav-stacked see-also">
 	      <li>
 		<a href="http://nogiushi.com/">
-		  <img src="/images/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
+		  <img src="{{$Static}}/images/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
 		</a>
 	      </li>
 	      <li>
 		<a href="https://medium.com/@eikeon">
-		  <img src="/images/medium.png" class="img-rounded" alt="eikeon @medium" />
+		  <img src="{{$Static}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
 		</a>
 	      </li>
 	      <li>
 		<a href="https://github.com/eikeon">
-		  <img src="/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
+		  <img src="{{$Static}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://facebook.com/eikeon">
-		  <img src="/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
+		  <img src="{{$Static}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://twitter.com/eikeon">
-		  <img src="/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
+		  <img src="{{$Static}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
 		</a>
 	      </li>
 	      <li>
 		<a href="https://flipboard.com/section/marvin-bRwcpK">
-		  <img src="/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
+		  <img src="{{$Static}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
 		</a>
 	      </li>
 	    </ul>
 	  </nav>
 	</div>
 	<div id="fb-root"></div>
-	<script src="/js/eikeon.js"></script>
+	<script src="{{$Static}}/js/eikeon.js"></script>
       </div>
     </div>
   </body>

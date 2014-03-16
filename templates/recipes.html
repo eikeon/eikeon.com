@@ -1,12 +1,12 @@
-{{define "content"}}{{if .Recipes}}
+{{define "content"}}{{$Static := .Site.Static}}{{if .Recipes}}
 
 <article class="recipes">
-  <header style="background-image: url({{.Photo}});">
+  <header style="background-image: url({{$Static}}{{.Photo}});">
     <h1>Recipes</h1>
   </header>
   <p class="lead">{{.Description}}</p>
   <ul class="list-unstyled">{{range .Recipes}}
-    <li><a href="/recipe/{{.Id}}/"><div style="background-image: url({{.Photo}});"><h1>{{.Name}}</h1></div></a></li>{{end}}
+    <li><a href="/recipe/{{.Id}}/"><div style="background-image: url({{$Static}}{{.Photo}});"><h1>{{.Name}}</h1></div></a></li>{{end}}
   </ul>  
   <aside>
     <div>

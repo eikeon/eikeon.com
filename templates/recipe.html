@@ -1,8 +1,8 @@
-{{define "content"}}{{with .Recipe}}
+{{define "content"}}{{$Static := .Site.Static}}{{with .Recipe}}
 <article class="recipe" itemscope itemtype="http://data-vocabulary.org/Recipe">
-  <header{{if .Photo}} style="background-image: url({{.Photo}});"{{end}}>
+  <header{{if .Photo}} style="background-image: url({{$Static}}{{.Photo}});"{{end}}>
     <h1 itemprop="name">{{.Name}} <small>Recipe</small></h1>
-    {{if .Photo}}<img itemprop="photo" src="{{.Photo}}" class="img-rounded"/>{{end}}
+    {{if .Photo}}<img itemprop="photo" src="{{$Static}}{{.Photo}}" class="img-rounded"/>{{end}}
   </header>
   <p class="lead">{{.Description}}</p>{{if .Ingredients}}
   <div class="main">
