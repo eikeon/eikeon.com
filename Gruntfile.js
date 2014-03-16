@@ -183,6 +183,7 @@ module.exports = function(grunt) {
                 options: {
                     // You can override encoding, fileNameFormat or renameFiles
                 },
+                filter: 'isFile',
                 // Files to hash
                 src: [
                     // WARNING: These files will be renamed!
