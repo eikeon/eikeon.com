@@ -45,6 +45,10 @@ type RecipeResource struct {
 	Recipe *Recipe
 }
 
+func (r *RecipeResource) Path() string {
+	return r.Recipe.Id()
+}
+
 func (r *RecipeResource) Title() string {
 	return r.Recipe.Name
 }
