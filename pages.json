@@ -7,7 +7,7 @@
             "Path": "/",
 	    "Name": "home",
             "Data": {
-                "Title": "Daniel Krech",
+                "Title": "Home",
 	        "Description": "",
 	        "Photo": "/images/tobe.jpg"
             }
@@ -40,7 +40,7 @@
             "Path": "/mediator/",
             "Name": "mediator",
             "Data": {
-                "Title": "..."
+                "Title": "Mediator"
             }
         }
     ]

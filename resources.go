@@ -50,7 +50,7 @@ func (r *RecipeResource) Path() string {
 }
 
 func (r *RecipeResource) Title() string {
-	return r.Recipe.Name
+	return r.Recipe.Name + " Recipe"
 }
 
 func (r *RecipeResource) Description() string {
