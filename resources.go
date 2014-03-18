@@ -46,7 +46,7 @@ type RecipeResource struct {
 }
 
 func (r *RecipeResource) Path() string {
-	return r.Recipe.Id()
+	return "/recipe/" + r.Recipe.Id() + "/" // TODO: use Route reverse
 }
 
 func (r *RecipeResource) Title() string {
