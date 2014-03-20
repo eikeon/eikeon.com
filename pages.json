@@ -40,7 +40,8 @@
             "Path": "/mediator/",
             "Name": "mediator",
             "Data": {
-                "Title": "Mediator"
+                "Title": "Mediator",
+               "Photo": "/images/colock1.jpg"
             }
         }
     ]
