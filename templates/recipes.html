@@ -8,12 +8,6 @@
   <ul class="list-unstyled">{{range .Recipes}}
     <li><a href="/recipe/{{.Id}}/"><div style="background-image: url({{$Static}}{{.Photo}});"><h1>{{.Name}}</h1></div></a></li>{{end}}
   </ul>  
-  <aside>
-    <div>
-      <div class="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
-    </div>
-  </aside>
-  
 </article>
 
 {{end}}{{end}}

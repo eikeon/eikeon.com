@@ -28,6 +28,7 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a href="/">{{.Site.Name}}</a></li>
               <li><a href="/recipes/">Recipes</a></li>
+              <li><a href="/mediator/">Mediator</a></li>
             </ul>
 	    <ul class="nav nav-pills nav-stacked see-also">
 	      <li>
@@ -63,10 +64,17 @@
 	    </ul>
 	  </nav>
 	</div>
-	<div id="fb-root"></div>
-	<script src="{{$Static}}/js/eikeon.js"></script>
       </div>
     </div>
+    <aside>
+      <div>
+        <div class="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
+        <div class="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>        
+        <div class="fb-comments" data-href="http://{{.Site.Host}}{{.Path}}" data-num-posts="10" data-width="300"></div>
+      </div>
+    </aside>
+    <div id="fb-root"></div>
+    <script src="{{$Static}}/js/eikeon.js"></script>
   </body>
 </html>
 {{end}}
