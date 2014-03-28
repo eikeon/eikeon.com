@@ -9,7 +9,8 @@
             "Data": {
                 "Title": "Home",
 	        "Description": "",
-	        "Photo": "/images/tobe.jpg"
+	        "Photo": "/images/tobe.jpg",
+                "Type": "website"
             }
         },
         {
@@ -18,7 +19,8 @@
             "Data": {
                 "Title": "Recipes",
 	        "Description": "Some healthy and delicious recipes.",
-	        "Photo": "/images/recipes.jpg"
+	        "Photo": "/images/recipes.jpg",
+                "Type": "article"
             }
         },
         {
@@ -33,7 +35,8 @@
 	    "Name": "resume",
             "Data": {
                 "Title": "Daniel Krech's Resume",
-	        "Description": "Daniel Krech's resume."
+	        "Description": "Daniel Krech's resume.",
+                "Type": "article"
             }
         },
         {
@@ -41,7 +44,8 @@
             "Name": "mediator",
             "Data": {
                 "Title": "Mediator",
-                "Photo": "/images/colock1.jpg"
+                "Photo": "/images/colock1.jpg",
+                "Type": "article"
             }
         }
     ]
