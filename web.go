@@ -27,7 +27,7 @@ func main() {
 	h := web.NewHub()
 	go func() {
 		for mention := range medium.Tweets() {
-			h.In <- web.Message{"Tweet": mention.Tweet, "Story": mention.Story, "Count": mention.Count}
+			h.In <- map[string]interface{}{"Tweet": mention.Tweet, "Story": mention.Story, "Count": mention.Count}
 		}
 	}()
 	http.Handle("/messages", h.Handler())

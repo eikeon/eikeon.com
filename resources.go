@@ -35,6 +35,10 @@ func (r *Resource) Photo() string {
 	return r.Route.Data["Photo"]
 }
 
+func (r *Resource) Up() string {
+	return r.Route.Data["Up"]
+}
+
 type RecipesResource struct {
 	Resource
 	Recipes map[string]*Recipe

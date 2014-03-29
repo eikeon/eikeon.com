@@ -187,7 +187,9 @@ module.exports = function(grunt) {
                 // Files to hash
                 src: [
                     // WARNING: These files will be renamed!
-                    'dist/static/**/*.*', '!dist/static/**/*~*.*', '!dist/static/robots.txt', '!dist/static/favicon.ico'],
+                    'dist/static/**/*.*', '!dist/static/**/*~*.*',
+                    '!dist/static/fonts/*.*',
+                    '!dist/static/robots.txt', '!dist/static/favicon.ico'],
                 // File that refers to above files and needs to be updated with the hashed name
                 dest: ['dist/templates/*.html', 'dist/recipes', 'dist/pages.json']
             }

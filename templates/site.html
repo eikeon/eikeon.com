@@ -17,62 +17,19 @@
     <link href="{{$Static}}/css/eikeon.min.css" rel="stylesheet">
   </head>
   <body class="loading">
-    <div class="wrapper">
-      <div class="inner-wrapper">
-	<button type="button" class="nav-toggle btn btn-default btn-lg" aria-hidden="true">=</button>
-	<div role="main">
-	  {{template "content" .}}
-	</div>
-	<div class="nav-bg">
-	  <nav role="navigation">
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">{{.Site.Name}}</a></li>
-              <li><a href="/recipes/">Recipes</a></li>
-              <li><a href="/mediator/">Mediator</a></li>
-            </ul>
-	    <ul class="nav nav-pills nav-stacked see-also">
-	      <li>
-		<a href="http://nogiushi.com/">
-		  <img src="{{$Static}}/images/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
-		</a>
-	      </li>
-	      <li>
-		<a href="https://medium.com/@eikeon">
-		  <img src="{{$Static}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
-		</a>
-	      </li>
-	      <li>
-		<a href="https://github.com/eikeon">
-		  <img src="{{$Static}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
-		</a>
-	      </li>
-	      <li>
-		<a href="https://facebook.com/eikeon">
-		  <img src="{{$Static}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
-		</a>
-	      </li>
-	      <li>
-		<a href="https://twitter.com/eikeon">
-		  <img src="{{$Static}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
-		</a>
-	      </li>
-	      <li>
-		<a href="https://flipboard.com/section/marvin-bRwcpK">
-		  <img src="{{$Static}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
+    {{if .Up }}<nav class="up"><h1><a href="{{.Up}}" rel="up"><span class="glyphicon glyphicon-chevron-up"></span></a></h1></nav>{{end}}
+
+    <div role="main">
+      {{template "content" .}}
     </div>
-    <aside>
+
+    {{if ne .Path "/"}}<aside>
       <div>
         <div class="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
         <div class="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>        
         <div class="fb-comments" data-href="http://{{.Site.Host}}{{.Path}}" data-num-posts="10" data-width="300"></div>
       </div>
-    </aside>
+    </aside>{{end}}
     <div id="fb-root"></div>
     <script src="{{$Static}}/js/eikeon.js"></script>
   </body>
