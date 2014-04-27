@@ -1,0 +1,37 @@
+[
+    {
+        "URL": "//www.eikeon.com/",
+	"Title": "Daniel Krech",
+        "Description": "",
+	"Photo": "/images/tobe.jpg",
+        "Name": "home",
+        "Type": "website",
+        "Static": "static.eikeon.com"
+    },
+    {
+        "URL": "//www.eikeon.com/recipes/",
+        "Title": "Recipes",
+	"Description": "Some healthy and delicious recipes.",
+	"Photo": "/images/recipes.jpg",        
+	"Name": "recipes",
+        "Type": "article", 
+        "Up": "/"
+    },
+    {
+        "URL": "//www.eikeon.com/resume/",
+        "Title": "Daniel Krech's Resume",
+	"Description": "Daniel Krech's resume.",
+	"Name": "resume",        
+        "Type": "article",
+        "Up": "/"        
+    },
+    {
+        "URL": "//www.eikeon.com/mediator/",
+        "Title": "Mediator",
+        "Photo": "/images/colock1.jpg",
+        "Name": "mediator",        
+        "Type": "article",
+        "Up": "/"
+    }
+]
+

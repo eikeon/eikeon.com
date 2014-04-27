@@ -1,20 +1,20 @@
 {{define "html"}}<!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#" ng-app="MediatorApp">{{$Static := .Site.Static}}  
+<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#" ng-app="MediatorApp">
   <head>{{if eq .Path "/mediator/"}}
-    <script src="{{$Static}}/js/mediator.js"></script>{{end}}
+    <script src="{{"/js/mediator.js" | static}}"></script>{{end}}
     <meta charset="utf-8">
-    <title>{{with .Title}}{{.}} « {{end}}{{.Site.Name}}</title>
+    <title>{{.Title}}{{if ne .Title .Site.Title}} « {{.Site.Title}}{{end}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="{{.Title}}"/>
-    <meta property="og:site_name" content="{{.Site.Name}}"/>
+    <meta property="og:site_name" content="{{.Site.Title}}"/>
     <meta property="og:locale" content="en_US"/>
     <meta property="fb:app_id" content="255665227781659">
     <meta property="fb:admins" content="756782588"/>
-    <meta property="og:url" content="http://www.eikeon.com{{.Path}}"/>{{with .Type}}
+    <meta property="og:url" content="http:{{.URL}}"/>{{with .Type}}
     <meta property="og:type" content="{{.}}" />{{end}}
     <meta property="og:description" content="{{.Description}}"/>{{with .Photo}}
     <meta property="og:image" content="http://www.eikeon.com{{.}}"/>{{end}}
-    <link href="{{$Static}}/css/eikeon.min.css" rel="stylesheet">
+    <link href="{{"/css/eikeon.min.css" | static}}" rel="stylesheet">
   </head>
   <body class="loading">
     {{if .Up }}<nav class="up"><h1><a href="{{.Up}}" rel="up"><span class="glyphicon glyphicon-chevron-up"></span></a></h1></nav>{{end}}
@@ -27,11 +27,11 @@
       <div>
         <div class="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
         <div class="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>        
-        <div class="fb-comments" data-href="http://{{.Site.Host}}{{.Path}}" data-num-posts="10" data-width="300"></div>
+        <div class="fb-comments" data-href="http:{{.URL}}" data-num-posts="10" data-width="300"></div>
       </div>
     </aside>{{end}}
     <div id="fb-root"></div>
-    <script src="{{$Static}}/js/eikeon.js"></script>
+    <script src="{{"/js/eikeon.js" | static}}"></script>
   </body>
 </html>
 {{end}}

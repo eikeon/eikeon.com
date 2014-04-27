@@ -109,7 +109,7 @@ module.exports = function(grunt) {
                         dest: 'dist/static/'
                     },
                     {
-                        src: ['templates/*', 'recipes', 'pages.json'],
+                        src: ['templates/*', 'recipes', 'resources.json'],
                         dest: 'dist/'
                     },
                     {
@@ -191,7 +191,7 @@ module.exports = function(grunt) {
                     '!dist/static/fonts/*.*',
                     '!dist/static/robots.txt', '!dist/static/favicon.ico'],
                 // File that refers to above files and needs to be updated with the hashed name
-                dest: ['dist/templates/*.html', 'dist/recipes', 'dist/pages.json']
+                dest: ['dist/templates/*.html', 'dist/recipes', 'dist/resources.json']
             }
         }
     });
@@ -215,6 +215,6 @@ module.exports = function(grunt) {
     grunt.registerTask('static', ['static-css', 'static-js', 'static-images', 'static-fonts']);
 
     // Default task.
-    grunt.registerTask('default', ['shell', 'test', 'static', 'hashres']);
+    grunt.registerTask('default', ['shell', 'test', 'static']);
 
 };

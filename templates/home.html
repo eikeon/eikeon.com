@@ -1,24 +1,22 @@
 {{define "content"}}
 
 <article class="home">
-  <header style="background-image: url({{.Site.Static}}{{.Photo}});">
+  <header style="background-image: url({{.Photo | static}});">
     <h1>Daniel Krech <small>eikeon</small></h1>
   </header>
   <p class="lead">{{.Description}}</p>
 
-{{$Static := .Site.Static}}
-
   <ul>
     <li>
       <a href="/recipes/">
-        <div style="background-image: url({{$Static}}/images/recipes.jpg);">
+        <div style="background-image: url({{"/images/recipes.jpg" | static}});">
           <h1>Recipes</h1>
         </div>
       </a>
     </li>
     <li>
       <a href="/mediator/">
-        <div {{if .Site}}style="background-image: url({{$Static}}/images/colock1.jpg);"{{end}}>
+        <div {{if .Site}}style="background-image: url({{"/images/colock1.jpg" | static}});"{{end}}>
           <h1>Mediator <small>See what Medium stories people are talking about on Twitter.</small></h1>
         </div>
       </a>
@@ -28,32 +26,32 @@
   <ul class="see-also">
     <li>
       <a href="http://nogiushi.com/">
-	<img src="{{$Static}}/images/brain-gears-hi.png" class="img-rounded" alt="nogiushi" />
+	<img src="{{"/images/brain-gears-hi.png" | static}}" class="img-rounded" alt="nogiushi" />
       </a>
     </li>
     <li>
       <a href="https://medium.com/@eikeon">
-	<img src="{{$Static}}/images/medium.png" class="img-rounded" alt="eikeon @medium" />
+	<img src="{{"/images/medium.png" | static}}" class="img-rounded" alt="eikeon @medium" />
       </a>
     </li>
     <li>
       <a href="https://github.com/eikeon">
-	<img src="{{$Static}}/images/gh.jpg" class="img-rounded" alt="eikeon @github"/>
+	<img src="{{"/images/gh.jpg" | static}}" class="img-rounded" alt="eikeon @github"/>
       </a>
     </li>
     <li>
       <a href="https://facebook.com/eikeon">
-	<img src="{{$Static}}/images/FB-f-Logo__blue_512.png" class="img-rounded" alt="eikeon @facebook"/>
+	<img src="{{"/images/FB-f-Logo__blue_512.png" | static}}" class="img-rounded" alt="eikeon @facebook"/>
       </a>
     </li>
     <li>
       <a href="https://twitter.com/eikeon">
-	<img src="{{$Static}}/images/twitter-bird-light-bgs.png" class="img-rounded" alt="eikeon @twitter"/>
+	<img src="{{"/images/twitter-bird-light-bgs.png" | static}}" class="img-rounded" alt="eikeon @twitter"/>
       </a>
     </li>
     <li>
       <a href="https://flipboard.com/section/marvin-bRwcpK">
-	<img src="{{$Static}}/images/flipboard.png" class="img-rounded" alt="marvin @flipboard"/>
+	<img src="{{"/images/flipboard.png" | static}}" class="img-rounded" alt="marvin @flipboard"/>
       </a>
     </li>
   </ul>
