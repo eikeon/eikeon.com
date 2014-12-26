@@ -1,31 +1,3 @@
-(function($) {
-    var body = $('body');
-
-    $('.nav-toggle').on('click', function() {
-	body
-            .removeClass('loading')
-            .toggleClass('nav-open');
-    });
- 
-    $('.wrapper').find('[role="main"]').on('click', function(e) {
-	if ( body.hasClass('nav-open') ) {
-            body
-		.removeClass('nav-open')
-		.blur();
-            e.preventDefault();     
-	}
-    });
-})(jQuery);    
-    
-(function($) {
-    function initPage() {
-        $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
-        $('a').tooltip();
-    }
-    $(initPage);
-
-})(jQuery);
-
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '255665227781659', // App ID

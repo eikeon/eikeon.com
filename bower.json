@@ -1,11 +1,7 @@
 {
-  "name": "eikeon",
+  "name": "eikeon.com",
   "version": "0.3.0",
   "dependencies": {
-    "bootstrap": "git://github.com/twbs/bootstrap.git#3.1.1",
-    "angular": "git@github.com:angular/bower-angular.git#1.2.15",
-    "angular-animate": "git@github.com:angular/bower-angular-animate.git#1.2.15",
-    "angular-ui-bootstrap": "https://raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.10.0.min.js",
-    "mediator": "git@github.com:edsu/mediator"
+    "bootstrap": "git://github.com/twbs/bootstrap.git#3.1.1"
   }
 }

@@ -1,2 +1,0 @@
-  - add handling for compressed encoding(s)
-    //w.SetHeader("Vary", "Accept-Encoding") 
