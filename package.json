@@ -1,6 +1,6 @@
 {
   "name": "eikeon",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "private": true,
   "main": "server.js",
@@ -25,7 +25,6 @@
     "morgan": "^1.5.0",
     "node-jsx": "^0.12.4",
     "react": "^0.12.2",
-    "react-router-component": "git://github.com/STRML/react-router-component#react-0.12",
     "send": "^0.10.1",
     "serve-static": "^1.7.1"
   }
