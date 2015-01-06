@@ -9,7 +9,7 @@ RUN adduser --system --disabled-password --shell /bin/bash --uid=1000 --group ei
 RUN chown -R eikeon:eikeon /opt/eikeon
 WORKDIR /opt/eikeon
 RUN npm install -g npm
-RUN npm install -g npm bower gulp
+RUN npm install -g bower gulp
 USER eikeon
 RUN bower install --config.interactive=false && npm install
 EXPOSE  3000
