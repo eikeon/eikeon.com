@@ -22,10 +22,10 @@
       .pipe(gulp.dest('./static/'));
   });
 
-  gulp.task('javascript', function() {
+  gulp.task('scripts', function() {
 
     var bundler = browserify({
-      entries: ['./assets/js/site.js', './assets/js/eikeon.js'],
+      entries: ['./assets/js/site.js'],
       debug: true
     });
 
@@ -76,7 +76,7 @@
     gulp.watch('assets/images/**/*', [ 'images' ]);
   });
   
-  gulp.task('static', ['styles', 'less', 'javascript', 'images', 'bootstrap', 'ubuntu' ]);
+  gulp.task('static', ['styles', 'less', 'scripts', 'images', 'bootstrap', 'ubuntu' ]);
 
   gulp.task('webserver', function() {
     var app = connect()

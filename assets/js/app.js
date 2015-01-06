@@ -121,7 +121,7 @@ App = React.createClass({
       </div>
     </aside>
     <div id="fb-root"></div>        
-    <script src="/js/eikeon.js"></script>        
+    <script src="/js/bundle.js"></script>
   </body>
 </html>
 
