@@ -11,20 +11,20 @@
 }
 
 article {
-    display: -webkit-flex;
-    -webkit-align-items: center;
-    -webkit-justify-content: space-between;
-    -webkit-flex-flow: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: column;
     > *{
 	min-width: 300px;
 	max-width: 500px;
 	padding: 0px 10px;
     }
     > .main {
-	display: -webkit-flex;
-	-webkit-align-items: flex-start;
-	-webkit-justify-content: space-between;
-	-webkit-flex-flow: row wrap;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-flow: row wrap;
 	max-width: 100%;
 	padding: 0px 0px;
 	> *{
@@ -50,10 +50,10 @@ article {
 	max-width: 100%;
 	height: 200px;
 	margin-bottom: 10px;
-	display: -webkit-flex;
-	-webkit-align-items: center;
-	-webkit-justify-content: center;
-	-webkit-flex-flow: row wrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: row wrap;
 	h1 {
 	    color: white;
 	    padding: 10px;
@@ -99,9 +99,9 @@ footer {
 	max-width: 100%;
         list-style: none;
         padding-left: 0;
-	display: -webkit-flex;
-	-webkit-flex-flow: row wrap;
-	-webkit-justify-content: center;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
     }
     li {
 	padding: 10px;
@@ -112,10 +112,10 @@ footer {
 	    background-position: center center;
 	    background-repeat: no-repeat no-repeat;
 	    background-color: @gray-dark;
-	    display: -webkit-flex;
-	    -webkit-align-items: center;
-	    -webkit-justify-content: center;
-	    -webkit-flex-flow: row wrap;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    flex-flow: row wrap;
 	}
 	a {
 	    color: white;
@@ -130,10 +130,10 @@ footer {
 	width: 100%;
 	max-width: 100%;
 	> div {
-	    display: -webkit-flex;
-	    -webkit-flex-flow: row wrap;
-	    -webkit-justify-content: center;
-	    -webkit-align-items: flex-start;
+	    display: flex;
+	    flex-flow: row wrap;
+	    justify-content: center;
+	    align-items: flex-start;
 	    > div {
 		padding: 10px;
 		min-width: 320px;
