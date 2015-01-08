@@ -3,10 +3,10 @@
 var React = require('react'),
     //    $     = require('jquery'),
     getRecipe = require('./recipe_data.js').getRecipe,
-    Home = require('./home.js'),
-    Recipes = require('./recipes.js'),
-    Recipe = require('./recipe.js'),
-    Mediator = require('./mediator.js'),    
+    Home = require('./home.jsx'),
+    Recipes = require('./recipes.jsx'),
+    Recipe = require('./recipe.jsx'),
+    Mediator = require('./mediator.jsx'),    
     App;
 
 var NotFound = React.createClass({

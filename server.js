@@ -1,10 +1,10 @@
-require('node-jsx').install();
+require('node-jsx').install({extension: '.jsx'});
 
 var http = require('http'),
     send = require('send'),
     url = require('url'),
     React = require('react'),
-    App = require('./assets/js/app.js');
+    App = require('./assets/js/app.jsx');
 
 exports = module.exports = function (req, res) {
     if (false && (req.url == '/' || req.url == '/marvin/')) {
