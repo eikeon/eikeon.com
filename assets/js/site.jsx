@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var App = require('./app.jsx');
+var App = require('./app.jsx').App;
 
 window.jQuery = require('jquery');
 require('../../bower_components/bootstrap/dist/js/bootstrap.min');
