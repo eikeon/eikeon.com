@@ -1,14 +1,11 @@
 /** @jsx React.DOM */
 var React = require('react');
+var App = require('./app.jsx');
 
 window.jQuery = require('jquery');
 require('../../bower_components/bootstrap/dist/js/bootstrap.min');
 
-// Router.run(routes, function (Handler) {
-//    React.render(<Handler/>, document.getElementById('site'));
-// });
-
-//React.renderComponent(<App/>, document.getElementById('site'));
+React.render(<App path={document.location.pathname} />, document);
 
 window.fbAsyncInit = function() {
     FB.init({

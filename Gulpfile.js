@@ -2,6 +2,7 @@
   'use strict';
 
   var gulp       = require('gulp'),
+      rename = require("gulp-rename"),
       browserify = require('browserify'),
       reactify = require('reactify'),
       buffer = require('vinyl-buffer'),
@@ -19,19 +20,21 @@
 
   gulp.task('scripts', function() {
 
-    var browserified = transform(function(filename) {
-      var b = browserify({
-        entries: [filename],
-        debug: true
-      });
+    var b, browserified;
+    b = browserify({debug: true}).transform(reactify);
+    browserified = transform(function(filename) {
+      b.add(filename);
       return b.bundle();
     });
 
-    return gulp.src(['./assets/js/site.js'])
+    return gulp.src(['./assets/js/site.jsx'])
       .pipe(browserified)
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(uglify())
+      .pipe(rename(function (path) {
+        path.extname = '.js';
+      }))
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./static/js'));
   });
@@ -56,8 +59,8 @@
   });
 
   gulp.task('bootstrap', function () {
-    gulp.src(['bower_components/bootstrap/dist/**'])
-      .pipe(gulp.dest('./static/'));
+    gulp.src(['bower_components/bootstrap/dist/fonts/**'])
+      .pipe(gulp.dest('./static/fonts/'));
   });
 
   gulp.task('ubuntu', function () {

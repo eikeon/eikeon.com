@@ -16,18 +16,39 @@ var NotFound = React.createClass({
     <h1>Not Found</h1>
   </header>
   <p className="lead"></p>
-</article>
+    </article>;
   }
-})
+});
 
 App = React.createClass({
     getInitialState: function () {
-        return { landscape: false};
+        return { landscape: false, path: this.props.path};
     },
     toggleLandscape: function(event) {
         this.setState({landscape: !this.state.landscape});
     },
-    componentDidMount: function () {
+    onClick: function(event) {
+        var e = event.target;
+        while (e !== undefined) {
+            if (e.tagName === 'A') {
+                var so = {path: e.attributes.href.value};
+                window.history.pushState(so, "", e.attributes.href.value);
+                this.setState({path: e.attributes.href.value});
+                event.preventDefault();
+                return;
+            }
+            e = e.parentElement;
+        }
+    },
+    onpopstate: function(event) {
+        this.setState({path: event.state.path});
+    },
+    componentDidMount: function() {
+        window.addEventListener('click', this.onClick);
+        window.onpopstate = this.onpopstate;
+    },
+    componentWillUnmount: function() {
+        window.removeEventListener('click', this.onClick);
     },
     render: function () {
         var resource = {
@@ -76,23 +97,23 @@ App = React.createClass({
             }},                      
             
         ];
-        var path = this.props.path;
+        var path = this.state.path;
         routes.map(function (route) {
-            var match = path.match(route.pattern)            
+            var match = path.match(route.pattern);
             if (match !== null) {
                 route.func(match);
             }
         });
         var Nav = null;
         if (resource.up) {
-            Nav = <nav className="up"><h1><a href={resource.up} rel="up"><span className="glyphicon glyphicon-chevron-up"></span></a></h1></nav>
+            Nav = <nav className="up"><h1><a href={resource.up} rel="up"><span className="glyphicon glyphicon-chevron-up"></span></a></h1></nav>;
         }
         var bodyClass = "";
         if (this.state.landscape) {
             bodyClass = "landscape";
         }
         function url(path) {
-            return 'http://www.eikeon.com'+ path
+            return 'http://www.eikeon.com'+ path;
         }
         return <html>
   <head data-prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#">
@@ -106,24 +127,24 @@ App = React.createClass({
     <meta property="fb:admins" content="756782588"/>
     <meta property="og:type" content={resource.type} />
     <meta property="og:description" content={resource.description} />
-    <meta property="og:url" content={url(this.props.path)} />            
+    <meta property="og:url" content={url(this.state.path)} />
     <meta property="og:image" content={url(resource.image)} />
     <link href="/css/site.css" rel="stylesheet" media="screen" />
   </head>
-  <body className="loading">
+  <body className={bodyClass}>
     {Nav}
     {resource.Content}
     <aside>
       <div>
         <div className="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
         <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>        
-        <div className="fb-comments" data-href={url(this.props.path)} data-num-posts="10" data-width="300"></div>
+        <div className="fb-comments" data-href={url(this.state.path)} data-num-posts="10" data-width="300"></div>
       </div>
     </aside>
     <div id="fb-root"></div>        
-    <script src="/js/bundle.js"></script>
+    <script src="/js/site.js"></script>
   </body>
-</html>
+</html>;
 
     }
 });
