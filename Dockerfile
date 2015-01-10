@@ -2,9 +2,8 @@
 FROM nodesource/node:trusty
 MAINTAINER Daniel Krech <eikeon@eikeon.com>
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qq update && apt-get -qqy install git
+RUN apt-get -qq update && apt-get -qqy install git imagemagick graphicsmagick
 ADD . /opt/eikeon
-VOLUME /home/ubuntu
 RUN adduser --system --disabled-password --shell /bin/bash --uid=1000 --group eikeon
 RUN chown -R eikeon:eikeon /opt/eikeon
 WORKDIR /opt/eikeon

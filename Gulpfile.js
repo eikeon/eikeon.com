@@ -11,6 +11,7 @@
       sourcemaps = require('gulp-sourcemaps'),
       concat     = require('gulp-concat'),
       imagemin   = require('gulp-imagemin'),
+      imageResize = require('gulp-image-resize'),
       autoprefixer   = require('gulp-autoprefixer'),
       connect = require('connect'),
       http = require('http'),
@@ -55,7 +56,12 @@
     gulp.src(['assets/images/*.jpg', 'assets/images/*.png', 'assets/images/*.svg'])
       .pipe(imagemin())
       .pipe(gulp.dest('static/images/'));
+  });
 
+  gulp.task('photos', function () {
+    gulp.src(['assets/photos/*.png'])
+      .pipe(imageResize({ format : 'jpg' }))
+      .pipe(gulp.dest('static/images/'));
   });
 
   gulp.task('bootstrap', function () {
@@ -70,12 +76,13 @@
 
 
   gulp.task('watch', function() {
-    gulp.watch('assets/js/**/*.js', [ 'scripts' ]);
+    gulp.watch('assets/js/*.jsx', [ 'scripts' ]);
     gulp.watch('assets/less/*.less', [ 'less' ]);
-    gulp.watch('assets/images/**/*', [ 'images' ]);
+    gulp.watch('assets/images/*', [ 'images' ]);
+    gulp.watch('assets/photos/*', [ 'photos' ]);
   });
   
-  gulp.task('static', ['less', 'scripts', 'images', 'bootstrap', 'ubuntu' ]);
+  gulp.task('static', ['less', 'scripts', 'images', 'photos', 'bootstrap', 'ubuntu' ]);
 
   gulp.task('webserver', function() {
     var app = connect()
