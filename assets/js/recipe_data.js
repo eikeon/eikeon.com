@@ -273,7 +273,7 @@ var Recipe_data = [
     "Attributes": {
       "Source": " Clean Food: A Seasonal Guide to Eating Close to the Source with More Than 200 Recipes for a Healthy and Sustainable You\n\n"
     },
-    "Photo": "\/images\/Seaweed\ and\ Cabbage\ Sauté.jpg"
+    "Photo": "\/images\/seaweed_and_cabbage_saute.jpg"
   },
   {
     "Name": "Sesame Ginger Cucumber Salad",
