@@ -87,10 +87,11 @@ App = React.createClass({
     var e = event.target;
     while (e !== undefined) {
       if (e.tagName === 'A') {
+        event.preventDefault();
         var so = {path: e.attributes.href.value};
         window.history.pushState(so, "", e.attributes.href.value);
         this.setState({path: e.attributes.href.value});
-        event.preventDefault();
+        FB.XFBML.parse();
         return;
       }
       e = e.parentElement;
