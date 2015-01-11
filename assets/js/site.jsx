@@ -10,10 +10,8 @@ React.render(<App path={document.location.pathname} />, document);
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '255665227781659', // App ID
-        //channelUrl : '//www.eikeon.com/channel.html', // Channel File
-        status     : true, // check login status
-        cookie     : true, // enable cookies to allow the server to access the session
-        xfbml      : true  // parse XFBML
+        xfbml      : true,
+        version    : 'v2.2'
     });
 
     // Additional initialization code here
@@ -21,12 +19,13 @@ window.fbAsyncInit = function() {
 };
 
 // Load the SDK Asynchronously
-(function(d){
-    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    d.getElementsByTagName('head')[0].appendChild(js);
-}(document));
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 
 (function(i,s,o,g,r,a,m){
     i.GoogleAnalyticsObject=r;
