@@ -255,7 +255,7 @@ var Recipe_data = [
   },
   {
     "Name": "Seaweed and Cabbage Saut\u00e9",
-    "Description": "Apparently I find this one too delicious to get a picture. The description from the Clean Food book is as follows: I crave this powerhouse combination in the spring for its incredible cleansing and healing properties. Sea vegetables are loaded with easily absorbable calcium. Cabbage is a tonic for the stomach and digestive system, a blood alkalinizer, and a rich source of antioxidants, vitamins and minerals. Now that's strong medicine! This recipe doubles easily and keeps 4 to 5 days.\n\n",
+    "Description": "Finally managed to get a photo of this one! The description from the Clean Food book is as follows: I crave this powerhouse combination in the spring for its incredible cleansing and healing properties. Sea vegetables are loaded with easily absorbable calcium. Cabbage is a tonic for the stomach and digestive system, a blood alkalinizer, and a rich source of antioxidants, vitamins and minerals. Now that's strong medicine! This recipe doubles easily and keeps 4 to 5 days.\n\n",
     "Ingredients": [
       "1 cup dried arame",
       "1 teaspoon grapeseed oil",
