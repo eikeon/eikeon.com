@@ -1,6 +1,5 @@
 {
   "name": "eikeon.com",
-  "version": "0.3.2",
   "dependencies": {
     "bootstrap": "git://github.com/twbs/bootstrap.git#3.3.1"
   }

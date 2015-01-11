@@ -15,7 +15,7 @@
       autoprefixer   = require('gulp-autoprefixer'),
       connect = require('connect'),
       http = require('http'),
-      handler = require('./server'),
+      handler = require('./handler'),
       less = require('gulp-less'),
       path = require('path');
 
