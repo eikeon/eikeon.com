@@ -14,6 +14,7 @@ exports = module.exports = function (req, res) {
   function sendApp() {
     var content = React.renderToString(React.createElement(app.App, {path: path}));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'max-age=10');
     res.end("<!DOCTYPE html>" + content);
   }
   if (resource.title !== "Not Found") {
