@@ -92,6 +92,7 @@ App = React.createClass({
         window.history.pushState(so, "", e.attributes.href.value);
         this.setState({path: e.attributes.href.value});
         FB.XFBML.parse();
+        ga('send', 'pageview');
         return;
       }
       e = e.parentElement;
