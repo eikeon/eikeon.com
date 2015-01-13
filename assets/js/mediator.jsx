@@ -3,7 +3,7 @@
 var React = require('react');
 
 function mediatorStyle(photo) {
-    return {backgroundImage: "url('" + photo + "')"}
+    return {backgroundImage: "url('" + photo + "')"};
 }
 
 Mediator = React.createClass({
@@ -17,7 +17,7 @@ Mediator = React.createClass({
     <h1>Mediator</h1>
   </header>
   <p className="lead">Retired.</p>
-</article>
+</article>;
     }
 });
 

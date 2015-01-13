@@ -4,13 +4,13 @@ var React = require('react'),
     Home;
 
 Home = React.createClass({
-    getInitialState: function () {
-        return {};
-    },
-    render: function () {
-        var divStyle = {backgroundImage: "url('/images/tobe.jpg')"};
-        var recipesStyle = {backgroundImage: "url('/images/recipes.jpg')"};
-        return <article className="home">
+  getInitialState: function () {
+    return {};
+  },
+  render: function () {
+    var divStyle = {backgroundImage: "url('/images/tobe.jpg')"};
+    var recipesStyle = {backgroundImage: "url('/images/recipes.jpg')"};
+    return <article className="home">
   <header style={divStyle}>
     <h1>Daniel Krech <small>eikeon</small></h1>
   </header>
@@ -58,8 +58,7 @@ Home = React.createClass({
       </a>
     </li>
   </ul>
-
-    </article>
+    </article>;
     }
 });
 
