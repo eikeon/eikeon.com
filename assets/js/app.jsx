@@ -10,12 +10,14 @@ var React = require('react'),
 
 var NotFound = React.createClass({
   render: function() {
-    return <article>
-  <header>
-    <h1>Not Found</h1>
-  </header>
-  <p className="lead"></p>
-    </article>;
+    return (
+      <article>
+        <header>
+          <h1>Not Found</h1>
+        </header>
+        <p className="lead"></p>
+      </article>
+    );
   }
 });
 
@@ -121,38 +123,40 @@ App = React.createClass({
     function url(path) {
       return 'http://www.eikeon.com'+ path;
     }
-    return <html>
-          <head data-prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#">
-            <title>Daniel Krech</title>
-    <meta charSet="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content={resource.title} />
-    <meta property="og:site_name" content="eikeon.com"/>
-    <meta property="og:locale" content="en_US"/>
-    <meta property="fb:app_id" content="255665227781659" />
-    <meta property="fb:admins" content="756782588"/>
-    <meta property="og:type" content={resource.type} />
-    <meta property="og:description" content={resource.description} />
-    <meta property="og:url" content={url(this.state.path)} />
-    <meta property="og:image" content={url(resource.image)} />
-    <link href="/css/site.css" rel="stylesheet" media="screen" />
-  </head>
-  <body className={bodyClass}>
-    {Nav}
-    {resource.Content}
-    <aside>
-      <div>
-        <div className="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
-        <div className="fb-comments" data-href={url(this.state.path)} data-num-posts="10" data-width="300"></div>
-        <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
-      </div>
-    </aside>
-    <div id="fb-root"></div>        
-    <script src="/js/site.js"></script>
-  </body>
-</html>;
-
-    }
+    return (
+      <html>
+        <head data-prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# eikeonns: http://ogp.me/ns/apps/eikeonns#">
+          <title>Daniel Krech</title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta property="og:title" content={resource.title} />
+          <meta property="og:site_name" content="eikeon.com"/>
+          <meta property="og:locale" content="en_US"/>
+          <meta property="fb:app_id" content="255665227781659" />
+          <meta property="fb:admins" content="756782588"/>
+          <meta property="og:type" content={resource.type} />
+          <meta property="og:description" content={resource.description} />
+          <meta property="og:url" content={url(this.state.path)} />
+          <meta property="og:image" content={url(resource.image)} />
+          <link href="/css/site.css" rel="stylesheet" media="screen" />
+        </head>
+        <body className={bodyClass}>
+          {Nav}
+          {resource.Content}
+          <aside>
+            <div>
+              <div className="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
+              <div className="fb-comments" data-href={url(this.state.path)} data-num-posts="10" data-width="300"></div>
+              <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
+            </div>
+          </aside>
+          <div id="fb-root"></div>        
+          <script src="/js/site.js"></script>
+        </body>
+      </html>
+    );
+  }
 });
 
 module.exports = {App: App, getResource: getResource};
+  

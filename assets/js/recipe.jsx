@@ -36,11 +36,12 @@ Recipe = React.createClass({
       );
     });
         
-    return <article className="recipe">
-          <header style={recipeStyle(recipe.Photo)}>
+    return (
+      <article className="recipe">
+        <header style={recipeStyle(recipe.Photo)}>
             <h1>{recipe.Name} <small>Recipe</small></h1>
             <img itemProp="photo" src={recipe.Photo} className="img-rounded" />
-          </header>
+        </header>
           <p className="lead">{recipe.Description}</p>
           <div className="main">
             <section className="ingredients">
@@ -59,7 +60,8 @@ Recipe = React.createClass({
               {attributes}
             </dl>
           </section>
-    </article>;
+      </article>
+    );
   }
 });
 

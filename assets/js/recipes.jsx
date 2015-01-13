@@ -23,15 +23,17 @@ Recipes = React.createClass({
         </li>
       );
     });        
-    return <article className="recipes">
-  <header style={recipesStyle}>
-    <h1>Recipes</h1>
-  </header>
-  <p className="lead">Some healthy and delicious recipes.</p>
-  <ul className="list-unstyled">
-    {recipes}          
-  </ul>  
-    </article>;
+    return (
+      <article className="recipes">
+        <header style={recipesStyle}>
+          <h1>Recipes</h1>
+        </header>
+        <p className="lead">Some healthy and delicious recipes.</p>
+        <ul className="list-unstyled">
+          {recipes}          
+        </ul>  
+      </article>      
+    );
   }
 });
 
