@@ -14,12 +14,15 @@ Recipes = React.createClass({
     return {};
   },
   render: function () {
-    var divStyle = {backgroundImage: "url('/images/tobe.jpg')"};
     var recipesStyle = {backgroundImage: "url('/images/recipes.jpg')"};
     var recipes = recipe_data.map(function (recipe) {
       return (
         <li key={recipe_id(recipe.Name)}>
-          <a href={'/recipe/'+recipe_id(recipe.Name)+'/'}><div style={recipeStyle(recipe.Photo)}><h1>{recipe.Name}</h1></div></a>
+          <a href={'/recipe/'+recipe_id(recipe.Name)+'/'}>
+            <div style={recipeStyle(recipe.Photo)}>
+              <h1>{recipe.Name}</h1>
+            </div>
+          </a>
         </li>
       );
     });        
