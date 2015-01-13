@@ -142,8 +142,8 @@ App = React.createClass({
     <aside>
       <div>
         <div className="fb-like" data-send="true" data-width="300" data-show-faces="false"></div>
-        <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>        
         <div className="fb-comments" data-href={url(this.state.path)} data-num-posts="10" data-width="300"></div>
+        <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
       </div>
     </aside>
     <div id="fb-root"></div>        
