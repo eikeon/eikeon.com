@@ -74,6 +74,11 @@
       .pipe(gulp.dest('./static/ubuntu/'));
   });
 
+  gulp.task('static-root', function () {
+    gulp.src(['assets/robots.txt', 'assets/favicon.ico'])
+      .pipe(gulp.dest('./static/'));
+  });
+
 
   gulp.task('watch', function() {
     gulp.watch('assets/js/*.jsx', [ 'scripts' ]);
@@ -82,7 +87,7 @@
     gulp.watch('assets/photos/*', [ 'photos' ]);
   });
   
-  gulp.task('static', ['less', 'scripts', 'images', 'photos', 'bootstrap', 'ubuntu' ]);
+  gulp.task('static', ['static-root', 'less', 'scripts', 'images', 'photos', 'bootstrap', 'ubuntu' ]);
 
   gulp.task('webserver', function() {
     var app = connect()
@@ -93,6 +98,8 @@
     http.createServer(app).listen(3000);
   });
 
-  gulp.task('default', ['static', 'webserver', 'watch']);
+  gulp.task('default', ['static']);
+
+  gulp.task('server', ['static', 'webserver', 'watch']);
 
 }());
