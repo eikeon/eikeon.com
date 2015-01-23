@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react'),
+    url = require('url'),
     getRecipe = require('./recipe_data.js').getRecipe,
     Home = require('./home.jsx'),
     Recipes = require('./recipes.jsx'),
@@ -89,14 +90,17 @@ App = React.createClass({
   onClick: function(event) {
     var e = event.target;
     while (e !== undefined) {
+      console.log(e);
       if (e.tagName === 'A') {
-        if (url.parse(e.attributes.href.value).host === undefined) {
+        if (url.parse(e.attributes.href.value).host === null ) {
           event.preventDefault();
           var so = {path: e.attributes.href.value};
           window.history.pushState(so, "", e.attributes.href.value);
           this.setState({path: e.attributes.href.value});
           FB.XFBML.parse();
           ga('send', 'pageview');
+          return;
+        } else {
           return;
         }
       }
