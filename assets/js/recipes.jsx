@@ -31,7 +31,12 @@ Recipes = React.createClass({
         <header style={recipesStyle}>
           <h1>Recipes</h1>
         </header>
-        <p className="lead">Some healthy and delicious recipes.</p>
+
+	<blockquote>
+          <p>Good cooking is an art, as well as a form of intense pleasure…. A recipe is only a theme, which an intelligent cook can play each time with a variation.</p>
+          <cite><a href="http://en.wikipedia.org/wiki/Jehane_Benoît">Madame Jehane Benoît</a></cite>
+        </blockquote>
+
         <ul className="list-unstyled">
           {recipes}          
         </ul>  
