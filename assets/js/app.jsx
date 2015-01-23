@@ -89,13 +89,15 @@ App = React.createClass({
     var e = event.target;
     while (e !== undefined) {
       if (e.tagName === 'A') {
-        event.preventDefault();
-        var so = {path: e.attributes.href.value};
-        window.history.pushState(so, "", e.attributes.href.value);
-        this.setState({path: e.attributes.href.value});
-        FB.XFBML.parse();
-        ga('send', 'pageview');
-        return;
+        if (url.parse(e.attributes.href.value).host === undefined) {
+          event.preventDefault();
+          var so = {path: e.attributes.href.value};
+          window.history.pushState(so, "", e.attributes.href.value);
+          this.setState({path: e.attributes.href.value});
+          FB.XFBML.parse();
+          ga('send', 'pageview');
+          return;
+        }
       }
       e = e.parentElement;
     }
