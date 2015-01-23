@@ -254,7 +254,7 @@ var Recipe_data = [
     "Photo": "\/images\/red_lentil_soup_with_lemon.jpg"
   },
   {
-    "Name": "Seaweed and Cabbage Saut\u00e9",
+    "Name": "Seaweed and Cabbage Sauté",
     "Description": "Finally managed to get a photo of this one! The description from the Clean Food book is as follows: I crave this powerhouse combination in the spring for its incredible cleansing and healing properties. Sea vegetables are loaded with easily absorbable calcium. Cabbage is a tonic for the stomach and digestive system, a blood alkalinizer, and a rich source of antioxidants, vitamins and minerals. Now that's strong medicine! This recipe doubles easily and keeps 4 to 5 days.\n\n",
     "Ingredients": [
       "1 cup dried arame",
@@ -372,23 +372,20 @@ var recipe_map = Recipe_data.reduce(function ( total, current ) {
 }, {});
 
 function id(name) {
-    return encodeURIComponent(name).replace(/%20/g,'_').toLowerCase()
-    // var id = name
-    //     .toLowerCase()
-    //     .replace(/ /g,'_')
-    //     .replace(/[^\w_,]+/g,'')
-    //     ;    
-    // return id;
+  //return encodeURIComponent(name).replace(/%20/g,'_').toLowerCase()
+  return name
+    .toLowerCase()
+    .replace(/ /g,'_')
+  //     .replace(/[^\w_,]+/g,'')
+  ;
 }
 
-
-
 function getRecipe(id) {
-    return recipe_map[id]
+  return recipe_map[id];
 }
 
 module.exports = {
-    data: Recipe_data,
-    id: id,
-    getRecipe: getRecipe
-}
+  data: Recipe_data,
+  id: id,
+  getRecipe: getRecipe
+};
