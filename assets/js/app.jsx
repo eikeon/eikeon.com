@@ -60,6 +60,7 @@ var routes = [
 ];
 
 function getResource(path) {
+  path = decodeURIComponent(path);
   var n = routes.length;
   for (var i = 0; i < n; i++) {
     var route = routes[i];
