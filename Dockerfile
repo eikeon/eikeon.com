@@ -1,9 +1,9 @@
 #
-FROM nodesource/node:trusty
+FROM iojs:latest
 MAINTAINER Daniel Krech <eikeon@eikeon.com>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && apt-get -qqy install git imagemagick graphicsmagick
-RUN npm install -g npm && npm install -g bower gulp && npm install -g npm-check-updates
+RUN npm install -g bower gulp npm-check-updates && npm cache clear
 #
 RUN adduser --system --disabled-password --shell /bin/bash --group eikeon
 WORKDIR /opt/eikeon
