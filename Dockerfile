@@ -2,7 +2,7 @@
 FROM iojs:latest
 MAINTAINER Daniel Krech <eikeon@eikeon.com>
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qq update && apt-get -qqy install git imagemagick graphicsmagick
+RUN apt-get -qq update && apt-get -qqy install git imagemagick graphicsmagick && apt-get clean
 RUN npm install -g bower gulp npm-check-updates && npm cache clear
 #
 RUN adduser --system --disabled-password --shell /bin/bash --group eikeon --uid 1000
