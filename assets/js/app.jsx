@@ -47,6 +47,7 @@ var routes = [
      if (recipe) {
        return {title: recipe.Name + " « Daniel Krech", type: "eikeonns:recipe",
                description: recipe.Description, image: recipe.Photo,
+               next: '/recipe/'+recipe.next+'/', previous: '/recipe/'+recipe.previous+'/',
                Content: <Recipe recipe_id={match[1]} />, up: '/recipes/'};
      }
    }},
@@ -87,6 +88,13 @@ App = React.createClass({
   toggleLandscape: function(event) {
     this.setState({landscape: !this.state.landscape});
   },
+  push: function(path) {
+    var so = {path: path};
+    window.history.pushState(so, "", path);
+    this.setState({path: path});
+    FB.XFBML.parse();
+    ga('send', 'pageview');
+  },
   onClick: function(event) {
     var e = event.target;
     while (e !== undefined) {
@@ -94,11 +102,7 @@ App = React.createClass({
       if (e.tagName === 'A') {
         if (url.parse(e.attributes.href.value).host === null ) {
           event.preventDefault();
-          var so = {path: e.attributes.href.value};
-          window.history.pushState(so, "", e.attributes.href.value);
-          this.setState({path: e.attributes.href.value});
-          FB.XFBML.parse();
-          ga('send', 'pageview');
+          this.push(e.attributes.href.value);
           return;
         } else {
           return;
@@ -113,9 +117,35 @@ App = React.createClass({
   componentDidMount: function() {
     window.addEventListener('click', this.onClick);
     window.onpopstate = this.onpopstate;
+    window.document.onkeydown = this.handleKeyDown;
   },
   componentWillUnmount: function() {
     window.removeEventListener('click', this.onClick);
+  },
+  handleKeyDown: function(event) {
+    if (event.keyCode == '37') {
+      this.handlePrevious(event);
+    }
+    else if (event.keyCode == '39') {
+      this.handleNext(event);
+    }
+  },
+  getResource: function(id) {
+    return getResource(id);
+  },
+  handleNext: function(event) {
+    var resource = this.getResource(this.state.path);
+    if (resource.next !== undefined) {
+      this.push(resource.next);
+      //this.setState({path: resource.next});
+    }
+  },
+  handlePrevious: function(event) {
+    var resource = this.getResource(this.state.path);
+    if (resource.previous !== undefined) {
+      this.push(resource.previous);
+      //this.setState({path: resource.previous});
+    }
   },
   render: function () {
     var resource = getResource(this.state.path);

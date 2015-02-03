@@ -371,6 +371,13 @@ var recipe_map = Recipe_data.reduce(function ( total, current ) {
     return total;
 }, {});
 
+var n = Recipe_data.length;
+for (var i = 0; i < n; i++) {
+  var r = Recipe_data[i];
+  r.previous = id(Recipe_data[(i-1+n)%n].Name);
+  r.next = id(Recipe_data[(i+1)%n].Name);
+}
+
 function id(name) {
   //return encodeURIComponent(name).replace(/%20/g,'_').toLowerCase()
   return name
