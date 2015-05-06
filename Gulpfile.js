@@ -6,7 +6,7 @@
       browserify = require('browserify'),
       reactify = require('reactify'),
       buffer = require('vinyl-buffer'),
-      transform = require('vinyl-transform'),
+      source = require('vinyl-source-stream'),
       uglify = require('gulp-uglify'),
       sourcemaps = require('gulp-sourcemaps'),
       concat     = require('gulp-concat'),
@@ -21,23 +21,18 @@
 
   gulp.task('scripts', function() {
 
-    var b, browserified;
-    b = browserify({debug: true}).transform(reactify);
-    browserified = transform(function(filename) {
-      b.add(filename);
-      return b.bundle();
-    });
+      var b = browserify({entries: './assets/js/site.jsx', debug: true}).transform(reactify);
 
-    return gulp.src(['./assets/js/site.jsx'])
-      .pipe(browserified)
-      .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(uglify())
-      .pipe(rename(function (path) {
-        path.extname = '.js';
-      }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./static/js'));
+      return b.bundle()
+          .pipe(source('./site.jsx'))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({loadMaps: true}))
+          .pipe(uglify())
+          .pipe(rename(function (path) {
+              path.extname = '.js';
+          }))
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest('./static/js'));
   });
 
   gulp.task('less', function () {
