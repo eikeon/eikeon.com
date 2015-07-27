@@ -1,6 +1,6 @@
 {
   "name": "eikeon",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "",
   "private": true,
   "scripts": {
@@ -8,12 +8,12 @@
   },
   "author": "",
   "devDependencies": {
-    "browserify": "10.2.0",
-    "gulp": "3.8.11",
-    "gulp-autoprefixer": "2.3.0",
-    "gulp-concat": "2.5.2",
+    "browserify": "11.0.0",
+    "gulp": "3.9.0",
+    "gulp-autoprefixer": "2.3.1",
+    "gulp-concat": "2.6.0",
     "gulp-image-resize": "0.6.0",
-    "gulp-imagemin": "2.2.1",
+    "gulp-imagemin": "2.3.0",
     "gulp-less": "3.0.3",
     "gulp-react": "3.0.1",
     "gulp-rename": "1.2.2",
@@ -25,14 +25,14 @@
     "vinyl-transform": "1.0.0"
   },
   "dependencies": {
-    "connect": "3.3.5",
+    "connect": "3.4.0",
     "director": "1.2.8",
     "jquery": "2.1.4",
-    "morgan": "1.5.3",
+    "morgan": "1.6.1",
     "node-jsx": "0.13.3",
     "react": "0.13.3",
-    "send": "0.12.3",
-    "serve-static": "1.9.3"
+    "send": "0.13.0",
+    "serve-static": "1.10.0"
   },
   "engines": { "iojs": ">=1.0.0" }
 }
