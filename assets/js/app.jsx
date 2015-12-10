@@ -6,7 +6,7 @@ var React = require('react'),
     Home = require('./home.jsx'),
     Recipes = require('./recipes.jsx'),
     Recipe = require('./recipe.jsx'),
-    Mediator = require('./mediator.jsx'),    
+    Mediator = require('./mediator.jsx'),
     App;
 
 var NotFound = React.createClass({
@@ -187,7 +187,7 @@ App = React.createClass({
               <div className="fb-activity" data-site="eikeon.com" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
             </div>
           </aside>
-          <div id="fb-root"></div>        
+          <div id="fb-root"></div>
           <script src="/js/site.js"></script>
         </body>
       </html>
@@ -196,4 +196,3 @@ App = React.createClass({
 });
 
 module.exports = {App: App, getResource: getResource};
-  

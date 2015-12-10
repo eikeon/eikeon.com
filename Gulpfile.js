@@ -81,7 +81,7 @@
     gulp.watch('assets/images/*', [ 'images' ]);
     gulp.watch('assets/photos/*', [ 'photos' ]);
   });
-  
+
   gulp.task('static', ['static-root', 'less', 'scripts', 'images', 'photos', 'bootstrap', 'ubuntu' ]);
 
   gulp.task('webserver', function() {

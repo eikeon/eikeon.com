@@ -18,7 +18,7 @@ Recipe = React.createClass({
 
     var ingredients = recipe.Ingredients.map(function (ingredient) {
       return (
-        <li key={ingredient} itemProp="ingredient" itemScope itemType="http://data-vocabulary.org/RecipeIngredient"><span itemProp="name">{ingredient}</span></li>                
+        <li key={ingredient} itemProp="ingredient" itemScope itemType="http://data-vocabulary.org/RecipeIngredient"><span itemProp="name">{ingredient}</span></li>
       );
     });
     var directions = recipe.Directions.map(function (direction) {
@@ -35,7 +35,7 @@ Recipe = React.createClass({
         </div>
       );
     });
-        
+
     return (
       <article className="recipe">
         <header style={recipeStyle(recipe.Photo)}>
@@ -52,7 +52,7 @@ Recipe = React.createClass({
             </section>
             <section className="directions" itemProp="instructions">
               <h1>Directions</h1>
-              {directions}                   
+              {directions}
             </section>
           </div>
           <section className="attributes">

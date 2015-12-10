@@ -25,7 +25,7 @@ Recipes = React.createClass({
           </a>
         </li>
       );
-    });        
+    });
     return (
       <article className="recipes">
         <header style={recipesStyle}>
@@ -38,9 +38,9 @@ Recipes = React.createClass({
         </blockquote>
 
         <ul className="list-unstyled">
-          {recipes}          
-        </ul>  
-      </article>      
+          {recipes}
+        </ul>
+      </article>
     );
   }
 });

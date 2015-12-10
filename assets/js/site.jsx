@@ -1,17 +1,18 @@
 /** @jsx React.DOM */
 var React = require('react');
+var ReactDOM = require('react-dom');
 var App = require('./app.jsx').App;
 
 window.jQuery = require('jquery');
 require('../../bower_components/bootstrap/dist/js/bootstrap.min');
 
-React.render(<App path={document.location.pathname} />, document);
+ReactDOM.render(<App path={document.location.pathname} />, document);
 
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '255665227781659', // App ID
     xfbml      : true,
-    version    : 'v2.2'
+    version    : 'v2.5'
   });
     // Additional initialization code here
 };
