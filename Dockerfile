@@ -1,5 +1,5 @@
 #
-FROM iojs:latest
+FROM node:latest
 MAINTAINER Daniel Krech <eikeon@eikeon.com>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && apt-get -qqy install git imagemagick graphicsmagick && apt-get clean
