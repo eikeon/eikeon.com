@@ -1,13 +1,13 @@
-/** @jsx React.DOM */
-
 var React = require('react'),
     url = require('url'),
-    getRecipe = require('./recipe_data.js').getRecipe,
-    Home = require('./home.jsx'),
-    Recipes = require('./recipes.jsx'),
-    Recipe = require('./recipe.jsx'),
-    Mediator = require('./mediator.jsx'),
-    App;
+    getRecipe = require('./recipe_data.js').getRecipe;
+
+import Home from './home'
+import Recipes from './recipes'
+import Recipe from './recipe'
+import Mediator from './mediator'
+
+var App;
 
 var NotFound = React.createClass({
   render: function() {

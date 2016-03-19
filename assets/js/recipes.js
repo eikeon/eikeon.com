@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 var recipe_data = require('./recipe_data.js').data;
@@ -9,7 +7,7 @@ function recipeStyle(photo) {
   return {backgroundImage: "url('" + photo + "')"};
 }
 
-Recipes = React.createClass({
+var Recipes = React.createClass({
   getInitialState: function () {
     return {};
   },
@@ -45,4 +43,4 @@ Recipes = React.createClass({
   }
 });
 
-module.exports = Recipes;
+export default Recipes

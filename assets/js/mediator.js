@@ -1,12 +1,10 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 function mediatorStyle(photo) {
     return {backgroundImage: "url('" + photo + "')"};
 }
 
-Mediator = React.createClass({
+var Mediator = React.createClass({
     getInitialState: function () {
       return {};
     },
@@ -24,5 +22,3 @@ Mediator = React.createClass({
 });
 
 module.exports = Mediator;
-
-

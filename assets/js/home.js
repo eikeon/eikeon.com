@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react'),
     Home;
 
@@ -62,4 +60,4 @@ Home = React.createClass({
   }
 });
 
-module.exports = Home;
+export default Home;

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 var getRecipe = require('./recipe_data.js').getRecipe;
@@ -8,7 +6,7 @@ function recipeStyle(photo) {
   return {backgroundImage: "url('" + photo + "')"};
 }
 
-Recipe = React.createClass({
+var Recipe = React.createClass({
   getInitialState: function () {
     return {};
   },
