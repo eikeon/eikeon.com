@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     babelify = require('babelify'),
     sourceStream = require('vinyl-source-stream'),
     transform = require('vinyl-transform'),
+    streamify = require('gulp-streamify')
     uglify = require('gulp-uglify'),
     exorcist = require('exorcist'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -31,6 +32,7 @@ gulp.task('browserify', function() {
         .pipe(transform(function() {
             return exorcist('dist/static/js/site.js.map');
         }))
+        .pipe(streamify(uglify()))
         .pipe(rename(function (path) {
               path.extname = '.js';
         }))
@@ -101,4 +103,3 @@ gulp.task('watch', function() {
 gulp.task('static', ['static-root', 'less', 'browserify', 'images', 'photos', 'bootstrap', 'ubuntu']);
 
 gulp.task('default', ['server', 'static']);
-

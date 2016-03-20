@@ -14,6 +14,7 @@ RUN bower install --config.interactive=false
 COPY package.json /opt/eikeon/
 RUN npm install
 COPY . /opt/eikeon
+ENV NODE_ENV production
 RUN gulp
 EXPOSE  3000
 CMD npm start

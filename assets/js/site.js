@@ -2,9 +2,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./app.js').App;
 
-window.jQuery = require('jquery');
-require('../../bower_components/bootstrap/dist/js/bootstrap.min');
-
 ReactDOM.render(<App path={document.location.pathname} />, document);
 
 window.fbAsyncInit = function() {
